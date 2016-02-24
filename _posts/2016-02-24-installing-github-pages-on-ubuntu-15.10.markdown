@@ -68,7 +68,7 @@ And then modified the sample post already there and turned it into this one.
 
 # Running jekyll
 
-The usual instructions tell you how to run jekyll to serve pages up on localhost.  Not much good to me with a headless VM Ubuntu instance.  So here's how to expose externally:
+The usual instructions tell you how to run jekyll to serve pages up on localhost.  Not much good to me with a headless virtual Ubuntu instance.  So here's how to expose externally:
 
     cd ..  # Back to ~/piersfinalayson.github.io
     jekyll -serve --host 0.0.0.0
