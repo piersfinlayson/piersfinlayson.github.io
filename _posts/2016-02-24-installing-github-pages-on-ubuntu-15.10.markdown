@@ -6,7 +6,7 @@ categories: jekyll ruby ubuntu github
 ---
 # Simples
 
-Why oh why do people make everything as hard as possible?  I wanted to create a blog using github pages, but despite looking in all the obvious places I couldn't find a simple set of instructions _all in one place_ that explained how to do this.
+I wanted to create a blog using github pages, but despite looking in all the obvious places I couldn't find a simple set of instructions _all in one place_ that explained how to do this.
 
 Sigh.  Cue neverending redirect from one site to another saying I needed to do this, that or the other first.  This would probably be easy if I used ruby and had it and rubygems already installed, but it's been years since I've done anything with it.
 
