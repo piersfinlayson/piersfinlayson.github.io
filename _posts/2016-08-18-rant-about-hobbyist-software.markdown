@@ -16,6 +16,6 @@ This is where the rant comes in.  While the software I found worked - once the h
 
 This is all too common in the hobbyist electronics world - stuff that is designed to work only when everything is perfect, and to give no helpful clues if something isn't working.  It means everything is far too fragile, and is what lead me to develop otb-iot in the first place - and to use the ESP8266 SDK directly rather than use the (at the time) quite buggy and unstable Arduino port.
 
-I realise the software I download is worth what I paid for it (nothing), but it sometimes feels like a false economy.  Could I have actually written a PCA9685 driver in less time than I spent trying to get this thing working today?  Perhaps not, but I want to write my own driver long-term anyway (as the whole point of otb-iot is to work, and be maintainable and supportable), so I probably should have bitten the bullet.  Especially given I've already written my own ADS1115 I2C driver so have a head start.
+I realise the software I download is worth what I paid for it (nothing), but it sometimes feels like a false economy.  Could I have actually written a PCA9685 driver in less time than I spent trying to get this thing working today?  Perhaps not, but I want to write my own driver long-term anyway (as the whole point of otb-iot is to work, and be maintainable and supportable), so I probably should have bitten the bullet.  Especially given I've already written my own ADS1115 I2C driver so have a head start.  And it checks acks!
 
 Lesson learned?  Probably not - I like free!
