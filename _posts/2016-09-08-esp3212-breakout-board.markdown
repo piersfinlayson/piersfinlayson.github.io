@@ -27,4 +27,4 @@ Key differences with my board:
 
 Of course, as I don't have any ESP-3212 boards yet I haven't tested, so order and use at your own risk!  I'm a bit nervous that the Eagle library I used has a 1.5mm pin pitch, and I've not seen any specs for the ESP-3212 yet.  But if it doesn't work I've only lost 6 bucks!
 
-I've open-sourced the Eaglr .brd and .sch files for this design under the GPLv3 [here](https://github.com/piersfinlayson/open-source-pcb-designs), and am grateful to [MacroYau](https://github.com/MacroYau) for their [Eagle library](https://github.com/MacroYau/MacroYau-Eagle-Libraries).
+I've open-sourced the Eagle .brd and .sch files for this design under the GPLv3 [here](https://github.com/piersfinlayson/open-source-pcb-designs), and am grateful to [MacroYau](https://github.com/MacroYau) for their [Eagle library](https://github.com/MacroYau/MacroYau-Eagle-Libraries).
