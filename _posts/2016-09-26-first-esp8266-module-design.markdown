@@ -39,13 +39,13 @@ Particular challenges that stick in my mind (but not a comprehensive list):
 
 * try and keep all SPI lines the same length (yeah, right!)
 
-* whereas most ESP modules use a 26kHz oscillator for clocking, a 40kHZ oscillator should ensure that the UART output from the chip will come out by default at 115200kbps instead of the rather odd 74880 with the 26kHz oscillator - which is a nice optimization
+* whereas most ESP modules use a 26kHz oscillator for clocking, a 40kHZ oscillator [should ensure](http://esp8266-re.foogod.com/wiki/Serial_UART) that the UART output from the chip will come out by default at 115200kbps instead of the rather odd 74880 with the 26kHz oscillator - which is a nice optimization
 
 * as for RF traces, oscillator traces and components should generally be kept away from other traces
 
 * worth using an EMI shield on the module, to reduce noise output (and as I can't find sensibly sized, sensibly priced ones, I'm going to try and build my own - more on this experiment some other time!)
 
-* I want to use [castellations](https://www.google.co.uk/search?q=castellations&source=lnms&tbm=isch&sa=X&ved=0ahUKEwinoaDv0a3PAhWIJMAKHTc-DHwQ_AUICCgB&biw=1148&bih=803) to connect this module to my other boards, so needed to follow OSHPark's [guidelines](docs.oshpark.com/tips+tricks/castellation/) on how to achieve this
+* I want to use [castellations](https://www.google.co.uk/search?q=castellations&source=lnms&tbm=isch&sa=X&ved=0ahUKEwinoaDv0a3PAhWIJMAKHTc-DHwQ_AUICCgB&biw=1148&bih=803) to connect this module to my other boards, so needed to follow OSHPark's [guidelines](http://docs.oshpark.com/tips+tricks/castellation/) on how to achieve this
 
 * produce something as small as possible to keep price and footprint low.
 
