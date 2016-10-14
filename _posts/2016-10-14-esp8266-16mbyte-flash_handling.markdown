@@ -27,21 +27,21 @@ So, first thing to do was run a quick test with [esptool.py](https://github.com/
 
 Here's the output from an original D1 mini (not the pro!):
 
-```
+~~~~~~
 $ esptool.py flash_id
 Connecting...
 Manufacturer: ef
 Device: 4016
-```
+~~~~~~
 
 And here's the output from the modified D1 mini:
 
-```
+~~~~~~
 $ esptool.py flash_id
 Connecting...
 Manufacturer: ef
 Device: 4018
-```
+~~~~~~
 
 To break this down:
 
@@ -75,15 +75,15 @@ So, if the SDK and ROM SPI functions don't support > 4 MB flash, how can you do 
 
 Upon booting the device, code that resides in the ROM creates an SpiFlashChip struct.  A pointer to this structure is placed at a well known location - 0x3fffc714.  The structure itself seems to always be placed at 0x3fffc718.  So within your ESP8266 code you can simply declare a variable to access this pointer as follows:
 
-```
+~~~~~~
 extern SpiFlashChip *flashchip
-```
+~~~~~~
 
 Your code will compile and link because the linker scripts declare "flashchip" as being located at 0x3fffc714.
 
 You can then dereference this pointer from within your ESP8266 code to access the various data within the struct, which is structured as follows:
 
-```
+~~~~~~
 typedef struct{
         uint32  deviceId;
         uint32  chip_size;    // chip size in byte
@@ -92,7 +92,7 @@ typedef struct{
         uint32  page_size;
         uint32  status_mask;
 } SpiFlashChip;
-```
+~~~~~~
 
 The most interesting stuff in this structure is:
 
@@ -108,7 +108,7 @@ The way around this is to change the chip_size value to the actual value - 16,77
 
 Something like this:
 
-```
+~~~~~~
 uint32_t flash_size_sdk;     // Store off original figure here
 uint32_t flash_size_actual;  // Store off correct figure here
 
@@ -138,7 +138,7 @@ SpiFlashOpResult _spi_flash_read(uint32 src_addr, uint32 *des_addr, uint32 size)
   flashchip->chip_size = flash_size_sdk; // restore chip size
   return status;
 }
-```
+~~~~~~
 
 Your application should then call the replacement _spi_flash functions.  This works a treat.
 
