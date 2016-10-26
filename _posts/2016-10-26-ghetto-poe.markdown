@@ -15,8 +15,8 @@ I'm already building modules to power off 5V, using micro USB.  Therefore an obv
 
 So, I put together the first version of a "Ghetto" [(see definition 4)](https://www.urbandictionary.com/define.php?term=ghetto) PoE board which takes 5V off a micro USB connector and sends it out of an RJ45.  At the other end I'll tap off the cable directly.  In future - if this proves to be a viable approach - I might adapt my esp8266 boards to include an RJ45 to allow for easier termination.
 
-<a href="https://oshpark.com/shared_projects/yyvMDXC1"><img src="/static/img/ghetto%20poe%205v%20v0.1%20front.png" alt="Ghetto PoE 5V v0.1 front"/></a>
-<a href="https://oshpark.com/shared_projects/yyvMDXC1"><img src="/static/img/ghetto%20poe%205v%20v0.1%20back.png" alt="Ghetto PoE 5V v0.1 rear"/></a>
+<a target="_blank" href="https://oshpark.com/shared_projects/yyvMDXC1"><img src="/static/img/ghetto%20poe%205v%20v0.1%20front.png" alt="Ghetto PoE 5V v0.1 front"/></a>
+<a target="_blank" href="https://oshpark.com/shared_projects/yyvMDXC1"><img src="/static/img/ghetto%20poe%205v%20v0.1%20back.png" alt="Ghetto PoE 5V v0.1 rear"/></a>
 
 The BOM is pretty short:
 
