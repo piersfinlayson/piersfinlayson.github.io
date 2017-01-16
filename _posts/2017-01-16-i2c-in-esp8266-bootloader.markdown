@@ -47,6 +47,8 @@ The issues I hit were pretty straightforward to resolve:
   
 * Second the brzo_i2c source sticks ICACHE_FLASH_ATTR in front of the _setup() routine, so it's stored on flash and only loaded into RAM by the SDK when the function is run.  There is no SDK here to load into RAM, so again, if rboot calls _setup() here you'll get cyclic exceptions.  The solution is to remove the ICACHE_FLASH_ATTR (or undefine it as I've done, when compiled alongside rboot).  Note the actual I2C read/write routines are already missing the ICACHE_FLASH_ATTR - to ensure high, reliable performance of brzo_i2c.
 
+* As brzo_i2c allows configurable I2C bus speed, it needs to know whether the ESP8266 is running at the usual 80MHz or clocked to 160MHz.  It uses system_get_cpu_freq() from the SDK to query this.  As the SDK isn't present this isn't going to work.  So I just wrote my own implementation to wrap ets_get_cpu_frequency() which is present on the ROM.  (Probably overkill as I think the ESP8266 will only go into 160MHz mode when system_update_cpu_freq(160) is called - so will always be running at 80Mhz in the bootloader.)
+
 * The trickiest to solve was the fact that brzo_i2c (and my 24lc128 reading code) uses some global variables.  These are initialized either by implication (the C standard insists that globals are initialized to zero unless otherwise initialized) or explicitly in the C code.  This initialization happens either in the bss or data sections of the compiled executable.  The platform is then responsible for loading these sections to initialize the globals.
 
   However, the version of rboot I picked up used esptool2 (also from raburton) to create the .bin and omitted the bss and data sections.  Therefore the globals - such as i2c_error - never got initialized.  I had to modify my Makefile to include the bss and data sections and this problem went away.  I think the reason for omitting data and bss was to reduce the size of the bootloader binary as much as possible.  But as I'm only at around 9KB right now it's not a big deal.
@@ -105,3 +107,4 @@ I'm writing the eeprom data using a raspberry pi zero, along with
 The hwinfo tool uses the same [header](https://github.com/piersfinlayson/otb-iot/blob/master/include/otb_eeprom.h) to encode the eeprom data as otb-iot (and rboot) use to decode the information to ensure there are no inconsistencies in formatting.
 
 I found [this article](http://www.richud.com/wiki/Rasberry_Pi_I2C_EEPROM_Program) really useful for getting I2C working on the pi.  Note however, that it omits the need to "modprobe i2c-dev" after rebooting the pi to enable the I2C bus...
+
