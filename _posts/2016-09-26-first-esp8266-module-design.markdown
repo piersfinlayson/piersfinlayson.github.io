@@ -68,3 +68,7 @@ The breakout board for the above module is here:
 
 <a href="https://oshpark.com/shared_projects/xOhssR3b"><img src="https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/37881509ee946e7af3e36ea93cdcd11a.png" alt="otb-8266 breakout front"/></a>
 <a href="https://oshpark.com/shared_projects/xOhssR3b"><img src="https://644db4de3505c40a0444-327723bce298e3ff5813fb42baeefbaa.ssl.cf1.rackcdn.com/95cae47458a458671486597a30e6b812.png" alt="otb-8266 breakout rear"/></a>
+
+Edit 29 March 2018
+
+The Eagle .brd and .sch files for the esp8266 and esp8266 breakout designs can be found [here](https://github.com/piersfinlayson/open-source-pcb-designs).
