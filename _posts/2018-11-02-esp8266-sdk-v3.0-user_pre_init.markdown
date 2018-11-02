@@ -1,0 +1,100 @@
+---
+layout: post
+title:  "Upgrading to the Espressif ESP8266 NonOS SDK V3.0"
+date:   2018-11-02 16:30:00 +0000
+categories: esp8266 espressif sdk
+---
+
+[Espressif](https://www.espressif.com/) released [V3.0](https://github.com/espressif/ESP8266_NONOS_SDK/releases/tag/v3.0) of their ESP8266 NonOS SDK in August.  It's slightly non-trivial updating a C application that uses previous versions of the SDK to use V3.0 - as I found out when adding V3.0 support for [otb-iot](http://www.packom.org/otb-iot/).
+
+The key change is that prior to the SDK calling your "main" function user_init(), it now calls user_pre_init().  If you don't provide this function (which apps built on pre-V3.0 version of the SDK won't) then your app won't link, and instead will get an error like this:
+
+```
+bin/libmain2.a(app_main.o): In function `user_uart_wait_tx_fifo_empty':
+(.irom0.text+0x678): undefined reference to `user_pre_init'
+bin/libmain2.a(app_main.o): In function `system_phy_freq_trace_enable':
+(.irom0.text+0x6e4): undefined reference to `user_pre_init'
+collect2: error: ld returned 1 exit status
+```
+
+The [ESP8266 Non-OS SDK](https://www.espressif.com/sites/default/files/documentation/2C-ESP8266_Non_OS_SDK_API_Reference__EN.pdf) provides some brief guidance on what to put in user_pre_init():
+
+The [ESP8266 SDK Getting Started Guide](https://www.espressif.com/sites/default/files/documentation/2a-esp8266-sdk_getting_started_guide_en.pdf) provides some brief guidance on what to put in user_pre_init():
+
+```
+For ESP8266_NONOS_SDK_v3.0.0 and later versions, please add
+
+  void ICACHE_FLASH_ATTR user_pre_init(void)
+
+in user_main.c, and register your partition table in user_pre_init. 
+```
+
+And the [SDK README](https://github.com/espressif/ESP8266_NONOS_SDK/blob/master/README.md) has some more help:
+
+```
+Please add user_pre_init() in your project, which will be called before user_init(). And you MUST call system_partition_table_regist() in user_pre_init to register your project partition table.
+
+The following partition address CAN NOT be modified, and you MUST give the correct address. They are retated to the flash map, please refer to ESP8266 SDK Getting Started Guide or ESP8266 SDK 入门指南.
+
+SYSTEM_PARTITION_BOOTLOADER
+SYSTEM_PARTITION_OTA_1
+SYSTEM_PARTITION_OTA_2
+SYSTEM_PARTITION_SYSTEM_PARAMETER
+
+If you donot use Non-FOTA bin, eagle.irom0.text.bin and irom0.text MUST be downloaded the fixed address, which also can be found in ESP8266 SDK Getting Started Guide or ESP8266 SDK 入门指南, and you can define their partition type after SYSTEM_PARTITION_CUSTOMER_BEGIN.
+```
+
+That's not super helpful, but essentially what you need to do is call system_partition_table_regist() from user_pre_init() to tell the SDK where various information lives on the flash.  If you're using the SDK's built in OTA function then you need to set up the bootloader location/size, OTA partitions 1/2, etc.  However, otb-iot doesn't use the SDK's OTA function - it implements it's own.  Also, the documentation I've found suggests the SDK only allows the bootloader to be up to 4096 (0x1000) bytes in size, which isn't enough for otb-iot's [rboot](https://github.com/raburton/rboot) based bootloader.
+
+Therefore, I've figured out the minimum required to get the app to continue working on SDK V3.0.0 and above - it's adding an implementation of user_pre_init() like this.  (As this is taken from the otb-iot code it's [GPL v3.0](https://www.gnu.org/licenses/gpl.html) licensed.)
+
+```
+#if ESP_SDK_VERSION >= 030000
+// user_pre_init is required from SDK v3.0.0 onwards
+// It is used to register the parition map with the SDK, primarily to allow
+// the app to use the SDK's OTA capability.  We don't make use of that in 
+// otb-iot and therefore the only info we provide is the mandatory stuff:
+// - RF calibration data
+// - Physical data
+// - System parameter
+// The location and length of these are from the 2A SDK getting started guide
+void ICACHE_FLASH_ATTR user_pre_init(void)
+{
+  bool rc = false;
+  static const partition_item_t part_table[] = 
+  {
+    {SYSTEM_PARTITION_RF_CAL,
+     0x3fb000,
+     0x1000},
+    {SYSTEM_PARTITION_PHY_DATA,
+     0x3fc000,
+     0x1000},
+    {SYSTEM_PARTITION_SYSTEM_PARAMETER,
+     0x3fd000,
+     0x3000},
+  };
+
+  // This isn't an ideal approach but there's not much point moving on unless
+  // or until this has succeeded cos otherwise the SDK will just barf and 
+  // refuse to call user_init()
+  while (!rc)
+  {
+    rc = system_partition_table_regist(part_table,
+				       sizeof(part_table)/sizeof(part_table[0]),
+                                       4);
+  }
+
+  return;
+}
+#endif // ESP_SDK_VERSION >= 030000
+```
+
+This compiles and runs successfully.  Note these locations are only valid for a 4MB flash chip - other size flash chips have this information located at difference locations:
+
+- SYSTEM_PARTITION_RF_CAL lives 0x5000 bytes from the end of the flash and is 0x1000 bytes long
+
+- SYSTEM_PARTITION_PHY_DATA lives 0x4000 from the end and is 0x1000 long
+
+- SYSTEM_PARTITION_SYSTEM_PARAMETER lives 0x3000 from the end and is 0x3000 long
+
+Oh, and if you're looking for a V3.0.0 enabled version of [pfalcon's esp-open-sdk](https://github.com/pfalcon/esp-open-sdk), see [my fork](https://github.com/piersfinlayson/esp-open-sdk).  I expect as some point pfalcon will get around to suppor this.  Also, I have an x86_64 and arm (raspberry pi compatible) Ubuntu based [esp8266 docker build container](https://hub.docker.com/r/piersfinlayson/esp8266-build/) which supports SDK V3.0.0.
