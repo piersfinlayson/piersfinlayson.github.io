@@ -5,7 +5,15 @@ date:   2018-11-02 16:30:00 +0000
 categories: esp8266 espressif sdk docker containers
 ---
 
-I have created an ESP8266 build container, for both x86-64 and ARM architecture machines, including the raspberry pi.  The multi-architecture container is available [here](https://hub.docker.com/r/piersfinlayson/esp8266-build/).  This has support for [V3.0](https://github.com/espressif/ESP8266_NONOS_SDK/releases/tag/v3.0) of the Espressif SDK.  It is built on top of Ubuntu 18.04 for x86-64 and Raspbian Jesse for the pi.
+I have created an ESP8266 build container, for both x86-64 and ARM architecture machines, including the raspberry pi.  The multi-architecture container is available [here](https://hub.docker.com/r/piersfinlayson/esp8266-build/).
+
+This has support for
+
+- [V3.0](https://github.com/espressif/ESP8266_NONOS_SDK/releases/tag/v3.0) of the Espressif SDK (version tag 3.0.0)
+
+- [V2.2.0](https://github.com/espressif/ESP8266_NONOS_SDK/releases/tag/v2.2.0), the latest (at the time of writing) V2 SDK (version tag 2.2.0).
+
+It is built on top of Ubuntu 18.04 for x86-64 and Raspbian Jesse for the pi.
 
 Run the container like this:
 
