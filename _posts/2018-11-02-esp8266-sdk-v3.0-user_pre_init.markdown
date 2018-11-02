@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Upgrading to the Espressif ESP8266 NonOS SDK V3.0"
-date:   2018-11-02 16:30:00 +0000
+date:   2018-11-02 16:29:00 +0000
 categories: esp8266 espressif sdk
 ---
 
@@ -97,4 +97,4 @@ This compiles and runs successfully.  Note these locations are only valid for a 
 
 - SYSTEM_PARTITION_SYSTEM_PARAMETER lives 0x3000 from the end and is 0x3000 long
 
-Oh, and if you're looking for a V3.0.0 enabled version of [pfalcon's esp-open-sdk](https://github.com/pfalcon/esp-open-sdk), see [my fork](https://github.com/piersfinlayson/esp-open-sdk).  I expect as some point pfalcon will get around to suppor this.  Also, I have an x86_64 and arm (raspberry pi compatible) Ubuntu based [esp8266 docker build container](https://hub.docker.com/r/piersfinlayson/esp8266-build/) which supports SDK V3.0.0.
+Oh, and if you're looking for a V3.0.0 enabled version of [pfalcon's esp-open-sdk](https://github.com/pfalcon/esp-open-sdk), see [my fork](https://github.com/piersfinlayson/esp-open-sdk).  I expect as some point pfalcon will get around to suppor this.  Also, I have an x86_64 and arm (raspberry pi compatible) Ubuntu based [esp8266 docker build container](https://hub.docker.com/r/piersfinlayson/esp8266-build/) which supports SDK V3.0.0.  For instructions on how to use the container see [here](/esp8266/espressif/sdk/docker/containers/2018/11/02/esp8266-build-container.html).
