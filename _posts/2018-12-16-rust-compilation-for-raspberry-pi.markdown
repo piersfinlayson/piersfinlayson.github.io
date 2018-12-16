@@ -171,3 +171,28 @@ The main Rust codebase has now been patched, but as of today that fix isn't in t
 # Want to Know More?
 
 See the Dockerfile which builds the container referenced above [here](https://github.com/piersfinlayson/otbiot-docker/blob/master/build/Dockerfile).
+
+# Update - GNU vs MUSL
+
+Here's the output from ldd from a Rust release binary for a HTTP microservice built using the x86_64 gnu target:
+
+```
+        linux-vdso.so.1 (0x00007ffcbd5f3000)
+        libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f123ade8000)
+        librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f123abe0000)
+        libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f123a9c1000)
+        libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f123a7a9000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f123a3b8000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f123b8c9000)
+        libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f123a01a000)
+```
+
+If you don't have this stuff in your container (and these dependencies may have their own) then your binary won't run.
+
+Here's the output from an x86_64 musl target to contrast:
+
+```
+        not a dynamic executable
+```
+
+:-)
