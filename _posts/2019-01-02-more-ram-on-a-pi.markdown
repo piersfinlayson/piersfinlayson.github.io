@@ -17,6 +17,12 @@ I'm creating a [common build container]({% post_url 2018-12-16-rust-compilation-
 
 When a docker container -  including when created via a docker build command - exits with error code 137, the system has run out of memory, and the container has been killed by the [linux Out of Memory Killer](https://www.kernel.org/doc/gorman/html/understand/understand016.html).
 
+Here's my error:
+
+```
+The command '/bin/sh -c cd /home/build/working/build-gcc && make $PARALLEL_MAKE all-gcc' returned a non-zero code: 137 
+```
+
 Sometimes, if you're lucky, rerunning the docker build will succeed.  I find that running compiling a GCC cross-compiler on a Raspberry Pi 3 will sometimes fail, and sometimes succeed - just depending on what else is going on on the device.
 
 However, a Raspberry Pi 3 has 1GB of RAM, and a Raspberry Pi Zero only has 512 MB RAM.  I haven't yet managed to get a full compile of an ARM to x86\_64 gcc cross compiler to succeed on a Raspberry Pi Zero as part of a docker build (although I have once managed to get it to succeed within a manually created container), despite close to 100 attempts.
