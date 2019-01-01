@@ -21,6 +21,10 @@ Sometimes, if you're lucky, rerunning the docker build will succeed.  I find tha
 
 However, a Raspberry Pi 3 has 1GB of RAM, and a Raspberry Pi Zero only has 512 MB RAM.  I haven't yet managed to get a full compile of an ARM to x86\_64 gcc cross compiler to succeed on a Raspberry Pi Zero as part of a docker build (although I have once managed to get it to succeed within a manually created container), despite close to 100 attempts.
 
+# Just Add More RAM
+
+You can't do that, [apparently](https://www.raspberrypi.org/forums/viewtopic.php?t=14664).
+
 # Increase Swappiness
 
 My first thought on hitting 137 was to configure the kernel to swap out more aggressively.  You can configure this using the /proc/sys/vm/swappiness setting, where the higher the more aggressive the swap - with 0 being the minimum (no swap) and 100 the max.
