@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "PCA9956B 24 Channel I2C LED Driver"
-date:   2019-01-03 18:28:00 +0000
+date:   2019-01-03 17:28:00 +0000
 categories: nxp pca9956b i2c pwm led driver
 ---
 
