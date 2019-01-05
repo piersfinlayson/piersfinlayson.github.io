@@ -9,6 +9,10 @@ categories: memory management linux rpi raspberry pi virtual memory swap docker 
 
 I've spent several weeks trying to compile gcc on a Raspberry Pi Zero, and, while I haven't succeeded, I have learnt a bit more about linux memory management than I knew before, so this article pulls all of that knowledge together.
 
+*Update: 5 January 2019*
+
+I've now found the cause of my problem - read on, or see [here]({% post_url 2019-01-05-gcc-parallel-make-memory-sink %}) for more details.
+
 # Why?
 
 I'm creating a [common build container]({% post_url 2018-12-16-rust-compilation-for-raspberry-pi %}) which will run on all of x86\_64, ARMv6 and ARMv7 architectures, and build for all of those architectures.  Not because I _need_ to run builds on a Raspberry Pi per se, but because I like to have the same environments on all the machines I work on (so all the same utilities in place on every platform).
@@ -139,7 +143,19 @@ Mem:            433         288          98           0          46           0
 Swap:          4195          90        4104
 ```
 
+# Fixing the Problem
+
+It turned out the reason the compilation was using up so much RAM was because I was telling make to run 4 jobs in parallel - which the Pi Zero just couldn't handle.  More details over [here]({% post_url 2019-01-05-gcc-parallel-make-memory-sink %}).
+
 # Conclusions
 
+## Original Conclusion
+
 There's probably a few more obscure options I can tweak if I really needed to get this working - for example ensuring the Pi has as few background tasks running as possible, or even compiling a much more minimal kernel.  But I think this approach is probably on to a loser.  The next thing I'll try is building an ARMv6 container on ARMv7.
+
+## Updated Conclusions
+
+*Update: 5 January 2019*
+
+Well don't I feel like an idiot?  Not really - another valuable learning experience where not only have I learnt much more about linux's memory management, but also about another cross-platorm compilation gotcha.
 
