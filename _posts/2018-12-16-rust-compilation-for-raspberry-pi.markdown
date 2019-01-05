@@ -11,13 +11,15 @@ I've been playing around with the [Rust](https://www.rust-lang.org/) programming
 
 One of Rust's selling points is its "top-notch tooling", with built-in cross compilation support, so I thought this would be a breeze.  It look quite a lot more effort than planned though, read on for why.
 
+*Update: 5 January 2019*
+
+I now have a combined x86_64, ARMv7 and ARMv7 build container, available [here](https://hub.docker.com/r/piersfinlayson/build).  Version 0.2.2 onwards.
+
 # Build Container
 
 These days I do all of my developing in containers, to avoid constantly fighting with out of date dependencies, old version of tools, legacy rubbish lying around from previously playing around with different toolsets, etc.  I've now updated my primary build container to support Rust (and C/C++) cross compilation to a couple of different ARM platforms, suitable for all generations of Raspberry Pis, and vice versa (were I enough of a masochist to want to compile anything on a Raspberry Pi!).
 
-The x86_64 container can be found [here](https://cloud.docker.com/u/piersfinlayson/repository/docker/piersfinlayson/build-amd64).  You need at least version 0.1.7 to support the cross compliation.
-
-Depending on when you're reading this you may be able to find a cross-platform version [here](https://cloud.docker.com/u/piersfinlayson/repository/docker/piersfinlayson/build), again at least 0.1.7.  This supports being run on ARMv6, ARMv7 and x86_64, and compiling to any of these platforms.
+The x86_64, ARMv7 and ARMv6 container can be found [here](https://hub.docker.com/r/piersfinlayson/build).  You need at least version 0.2.2 to support all hosts and targets.
 
 The container also provides OpenSSL (for example, if you are building an HTTPS enabled web server), and MUSL libc.
 
@@ -166,11 +168,11 @@ While playing around with this I found a [nasty bug](https://github.com/rust-lan
 
 This bug is the reason I now far more about Rust toolchains and cross compilers than I ever thought I would - as cross compilation for the ARMv6 target didn't just work.
 
-The main Rust codebase has now been patched, but as of today that fix isn't in the released version of Rust - hopefully it will be as of 1.32 (January 2019?).  Once that's done I'm hoping - at least for my targets - this _will_ just work!
+The main Rust codebase has now been [patched](https://github.com/rust-lang/rust/commit/b17a3f21c239648141e749d5a4b5af4ae0430c2a#diff-bf0d5b0898f46200942e39ec93d84e7c), but as of today that fix isn't in the released version of Rust - hopefully it will be as of 1.32 (January 2019?).  Once that's done I'm hoping - at least for my targets - this _will_ just work!
 
 # Want to Know More?
 
-See the Dockerfile which builds the container referenced above [here](https://github.com/piersfinlayson/otbiot-docker/blob/master/build/Dockerfile).
+See the Dockerfile and script which build the container variants referenced above [here](https://github.com/piersfinlayson/otbiot-docker/tree/master/build).
 
 # Update - GNU vs MUSL
 
