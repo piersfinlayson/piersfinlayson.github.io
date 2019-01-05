@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Catching Ctrl-C in Rust"
-date:   2019-01-05 06:55:00 +0000
+date:   2019-01-06 06:55:00 +0000
 categories: rust signal sigint container docker
 ---
 
