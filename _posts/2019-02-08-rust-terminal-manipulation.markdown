@@ -53,6 +53,12 @@ fn main() {
 }
 ```
 
+You'll need this in your Cargo.toml [dependencies] section:
+
+```
+ansi-escapes = "0.1.0"
+```
+
 The ansi-escapes crate has various other function such as
 
 * Beep
