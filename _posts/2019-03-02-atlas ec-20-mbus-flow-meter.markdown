@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Atlas EC-20 mbus water/flow meter"
+title:  "Atlas EC-20 M-Bus water/flow meter"
 date:   2019-03-02 15:32:00 +0000
 categories: mbus libmbus raspberry pi rpi serial meter m-bus
 ---
