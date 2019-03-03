@@ -30,6 +30,8 @@ The following picture shows the M-Bus Master Hat mounted on a Raspberry Pi Model
 
 Be careful throughout the process not to damage any components on either the Pi or the Hat.  In particular, avoid the Pi's SD card area - it is easy to snap an SD card by putting too much pressure on it.
 
+If you are installing the M-Bus Master Hat on a Pi Zero, only 2 standoffs can be used.  In this case be careful not to put pressure on the unsupported parts of the Hat or you may damage the Hat or the Pi.
+
 # Removal
 
 Removal is the opposite of installation.  The Hat can be very firmly held to the Pi by the connectors and standoffs.  Be careful when sliding the Hat off not to damage any components or bend any pins.  In particular avoid holding the Pi anywhere near the SD card to avoid damaging the SD card or the Pi.
