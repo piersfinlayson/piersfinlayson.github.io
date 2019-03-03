@@ -1,0 +1,1 @@
+As an aim de memoire www.packom.org/otb-iot comes from the GitHub Pages settings here: https://github.com/piersfinlayson/otb-iot/settings
