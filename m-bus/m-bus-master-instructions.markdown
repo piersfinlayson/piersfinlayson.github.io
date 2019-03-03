@@ -12,7 +12,7 @@ exclude: yes
 }
 </style>
 
-# Installation
+## Installation
 
 The following picture shows the M-Bus Master Hat mounted on a Raspberry Pi Model 3 A+.  To mount the hat:
 
@@ -32,11 +32,11 @@ Be careful throughout the process not to damage any components on either the Pi 
 
 If you are installing the M-Bus Master Hat on a Pi Zero, only 2 standoffs can be used.  In this case be careful not to put pressure on the unsupported parts of the Hat or you may damage the Hat or the Pi.
 
-# Removal
+## Removal
 
 Removal is the opposite of installation.  The Hat can be very firmly held to the Pi by the connectors and standoffs.  Be careful when sliding the Hat off not to damage any components or bend any pins.  In particular avoid holding the Pi anywhere near the SD card to avoid damaging the SD card or the Pi.
 
-# Power On
+## Powering On
 
 Power on the Pi as usual.  The Hat's green "PI" LED should be illuminated.  (Depending the revision of your M-Bus Master the "BUS" LED may be faintly illuminated.)
 
@@ -52,7 +52,7 @@ M-Bus Master
 
 All further instructions below assume you are using [Raspbian](https://raspbian.org/).
 
-# Enabling Serial Access
+## Enabling Serial Access
 
 The Pi communicates with the M-Bus Master Hat using the serial port.  This requires some configuration on the Pi.
 
@@ -106,7 +106,7 @@ sudo reboot now
 
 Serial device /dev/ttyAMA0 will now be connected to the M-Bus Master Hat.  This is the PL011 UART on the Pi's Broadcom CPU.  See [this post]({% post_url 2019-02-18-raspberry-pi-serial-ports %}) for more information about the Raspberry Pi Serial ports.
 
-# Enable M-Bus
+## Enable M-Bus
 
 By default the M-Bus will be disabled - there will be no power on the bus.  Before communicating on the bus you need to power the bus on.  If you don't have wiringPi installed, install it now:
 ```
@@ -127,11 +127,11 @@ gpio write 25 0
 
 After a reboot the bus power will automatically be off by default.
 
-# Connecting Slaves
+## Connecting Slaves
 
 Slaves or a bus of slaves can be connected to the M-Bus Master Hat using the labelled M-Bus +/- connectors.  It doesn't matter which way around you connect the bus/slave cables.  Note that the M-Bus Master Hat is only rated for connection to up to 3 slave devices simultaneously and up to 100m cable runs.
 
-# Using libmbus
+## Using libmbus
 
 No software is provided with the M-Bus Master Hat, but you can use the open source [libmbus](https://github.com/rscada/libmbus) to drive it.
 
@@ -178,7 +178,7 @@ export LD_LIBRARY_PATH=/usr/local/lib
 
 Then try running the command again.
 
-# Problems
+## Problems
 
 If you have any problems with your M-Bus Master Hat, please [contact me](mailto:mbus@packom.net) with details of your problem.
 

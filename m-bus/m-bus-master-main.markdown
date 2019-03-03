@@ -27,12 +27,11 @@ The M-Bus Master Hat is fully compliant with the [Raspberry Pi Hat specification
 <p>(Raspberry Pi Not Included)</p>
 </form>
 
-
-# Getting Started
+## Getting Started
 
 Instructions on using the M-Bus Master Hat can be found [here](/m-bus/master/instructions).
 
-# Features
+## Features
 
 * Supports all Raspberry Pi boards from the Raspberry Pi 1 Model B+ (2014) onwards including:
 
@@ -92,7 +91,7 @@ Instructions on using the M-Bus Master Hat can be found [here](/m-bus/master/ins
 
 * Compatible with open source M-Bus master software [libmbus](https://github.com/rscada/libmbus).
 
-# Ordering
+## Ordering
 
 Cost is £25 per unit including shipping within the UK.  For shipping to other destinations please [contact me](mailto:mbus@packom.net).
 
@@ -123,11 +122,48 @@ Not included:
   <img alt="M-Bus Master Hat mounted on a Raspberry Pi Model 3 A+" src="/static/img/mbus_master_on_own.JPG" width="360" />
 </p>
 
-# Coming Soon
+## Coming Soon
 
-A Raspbery Pi M-Bus Slave Hat will be available by middle 2019.
+A Raspbery Pi M-Bus Slave Hat, allowing the Raspberry Pi to operate as an M-Bus slave, will be available by middle 2019.
 
 A Raspberry Pi based M-Bus Master HTTP server compatible with the Raspberry Pi M-Bus Master Hat will be available by middle 2019.
 
 If there is enough interest, it may be possible to produce a Raspberry Pi M-Bus Master Micro-Hat, which would be the same form factor as a Raspberry Pi Zero.  If you are interested in this please [contact me](mailto:mbus@packom.net).
+
+## Attribution
+
+The M-Bus Master Hat is based on an M-Bus Master design available as part of [libmbus](https://github.com/rscada/libmbus).
+
+# libmbus License
+
+BSD 3-Clause License
+
+Copyright (c) 2010-2012, Raditex Control AB
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 
