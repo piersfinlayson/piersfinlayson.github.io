@@ -13,12 +13,6 @@ categories: sot363 sc70 sc88 sot23 breakout board breadboard dip adapter
 
 I recently found myself using a SOT363 component - also known as SC70 and SC88.  This is a tiny 6 pin IC, and smaller than the ubiquitous SOT23.  I couldn't immediately find any breakout boards online, so developed my own.  As I now have 360 of them, I'm selling them in packs of ten, including header pins and postage within the UK, for £3.95.
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" align="center">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="PPQUMH7FES7UN">
-<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
-</form>
 <p class="aligncenter">
   <img alt="SOT363/SOT23 Breakout Boards" src="/static/img/sot363-sot23-breakout.JPG" width="360" />
 </p>
@@ -35,9 +29,4 @@ I must have been a little distracted when I designed these boards as the pins ar
   <img alt="10 x SOT363/SOT23 Breakout Boards plus header pins" src="/static/img/sot363-10.JPG" width="360" />
 </p>
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" align="center">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="PPQUMH7FES7UN">
-<input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
-</form>
+Order from [here](https://www.packom.net/sot363-sot23-breakout-boards/).
