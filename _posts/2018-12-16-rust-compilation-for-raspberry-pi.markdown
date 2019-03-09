@@ -170,6 +170,10 @@ This bug is the reason I now far more about Rust toolchains and cross compilers 
 
 The main Rust codebase has now been [patched](https://github.com/rust-lang/rust/commit/b17a3f21c239648141e749d5a4b5af4ae0430c2a#diff-bf0d5b0898f46200942e39ec93d84e7c), but as of today that fix isn't in the released version of Rust - hopefully it will be as of 1.32 (January 2019?).  Once that's done I'm hoping - at least for my targets - this _will_ just work!
 
+*Update: 9 March 2019*
+
+I have confirmed this bug is now fixed, as of Rust 1.33.
+
 # Want to Know More?
 
 See the Dockerfile and script which build the container variants referenced above [here](https://github.com/piersfinlayson/otbiot-docker/tree/master/build).
