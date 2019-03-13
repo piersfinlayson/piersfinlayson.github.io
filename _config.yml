@@ -6,13 +6,13 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: Piers Finlayson's Github Pages
-email: piers@piersandkatie.com
+title: piers.rocks
+email: piers@piers.rocks
 description: > # this means to ignore newlines until "baseurl:"
-  Piers Finlayson's musings related to his github projects.  Internet of Things
+  Piers's musings related to his github projects.  Internet of Things
   (IoT), embedded programming, heating systems, ...
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://piersfinlayson.github.io/" # the base hostname & protocol for your site
+url: "https://piers.rocks/" # the base hostname & protocol for your site
 twitter_username: PiersFinlayson
 github_username:  piersfinlayson
 
