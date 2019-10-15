@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "What's wrong with the pi zero"
+title:  "What's wrong with the Pi Zero?"
 date:   2019-10-15 17:52 +0000
 tags:   pi zero mbus m-bus power energy
 ---
