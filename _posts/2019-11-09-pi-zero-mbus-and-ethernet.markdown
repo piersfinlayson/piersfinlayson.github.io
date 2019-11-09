@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Running M-Bus Master and Ethernet Hats on a Pi Zero simultaneously"
-date:   2019-10-15 8:52 +0000
+date:   2019-11-09 8:52 +0000
 tags:   pi zero mbus m-bus power energy ethernet hat
 ---
 
