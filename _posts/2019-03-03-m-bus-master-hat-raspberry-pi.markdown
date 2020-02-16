@@ -22,7 +22,7 @@ This simplifies the steps needed to access an M-Bus slave.  Just install the Hat
 With otb-iot you need an MQTT broker, which in turn talks to an ESP8266 device over WiFi, which then connects to an custom developed M-Bus Master bus driver, and you must also implement a separate step to encode and decode the M-Bus protocol data.  With the Raspberry Pi M-Bus Master Hat you only need one device, and this can be driven using the existing open source [mbus-httpd](https://github.com/packom/mbus-httpd), [libmbus](https://github.com/rscada/libmbus), or other software.
 
 <p class="aligncenter">
-  <a href="https://www.packom.net/product/m-bus-master-hat/"><img alt="M-Bus Master Hat mounted on a Raspberry Pi Model 3 A+" src="/https://www.packom.net/wp-content/uploads/2020/02/mbus-master-hat-on-pi-a.jpg" width="360" /></a>
+  <a href="https://www.packom.net/product/m-bus-master-hat/"><img alt="M-Bus Master Hat mounted on a Raspberry Pi Model 3 A+" src="https://www.packom.net/wp-content/uploads/2020/02/mbus-master-hat-on-pi-a.jpg" width="360" /></a>
 </p>
 
 For more details and to order [go here](https://www.packom.net/product/m-bus-master-hat/).
