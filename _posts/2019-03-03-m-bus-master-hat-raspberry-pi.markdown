@@ -13,6 +13,8 @@ categories: mbus libmbus raspberry pi rpi serial meter m-bus hat
 
 Updated: 16 February 2020
 
+[Order one here!](https://www.packom.net/product/m-bus-master-hat/)
+
 After a chance comment by a user of [otb-iot](/otb-iot/) connecting to an M-Bus device I decided to develop a Raspberry Pi M-Bus Master "Hat".  A [Raspberry Pi Hat](https://www.raspberrypi.org/blog/introducing-raspberry-pi-hats/) is an add-on board which connects to a Raspberry Pi offering additional functionality.  This M-Bus Master Hat, perhaps unsurprisingly, extends the Raspberry Pi's function making it an M-Bus Master.
 
 This simplifies the steps needed to access an M-Bus slave.  Just install the Hat, and then follow the [simple instructions](https://www.packom.net/m-bus-master-hat-instructions/) to connect to your slaves.
