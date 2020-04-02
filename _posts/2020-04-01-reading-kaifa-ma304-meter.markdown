@@ -2,7 +2,7 @@
 layout: post
 title:  "Reading a Kaifa MA304 Electricity Meter using a Raspberry Pi"
 date:   2020-04-01 9:00 +0000
-tags:   pi mbus m-bus obis dlms kaifa ma304 power energy hat master serial
+tags:   pi mbus m-bus obis dlms kaifa ma304 power energy hat master serial dlms cosem iec 62056
 ---
 
 Many properties in Norway and Sweden have had Kaifa MA304 smart meters rolled out to them in recent years.  Here's how to use a Raspberry Pi to read it remotely.
@@ -206,7 +206,7 @@ The software was tested on a Kaifa MA304H4D, and provided the following output:
       "\u0007ä\u0004\u0002\u0004\f'\u0000ÿ�\u0000\u0000",
       [
          "KFM_001",
-         ""!!!!REDACTED!!!!",
+         "!!!!REDACTED!!!!",
          "MA304H4D",
          0,
          721,
@@ -227,3 +227,11 @@ The software was tested on a Kaifa MA304H4D, and provided the following output:
    ]
 }
 ```
+
+# Technical Details
+
+At first glance the Kaifa MA304 claims to support [M-Bus](https://m-bus.com/documentation).  In fact it only support the M-Bus [physical layer](https://m-bus.com/documentation-wired/04-physical-layer), master-slave architecture, with a nominal +36V bus, and uses voltage drops to signal from the master to slave, and current draws to communicate from the slave to the master.
+
+For protocol communication the Kaifa MA304 supports the [DLMS/COSEM](https://www.dlms.com/dlms-cosem/overview) standard instead of the M-Bus [data link](https://m-bus.com/documentation-wired/05-data-link-layer), [application](https://m-bus.com/documentation-wired/06-application-layer) and [network](https://m-bus.com/documentation-wired/07-network-layer) layers, over the top of the M-Bus physical layer.  This is a standard serial protocol running at 2400,8,N,1 with information encoded according to the DLMS/COSEM specs and OBIS objects (IEC 62056).
+
+The Kaifa MA304 reports serial data when the M-Bus port is powered every 2 seconds, with additional data every 10s and hour.  For more details see [this document](/static/files/S1001_Kaifa.HAN.OBIS.codes.KFM_001.pdf).
