@@ -234,4 +234,4 @@ At first glance the Kaifa MA304 claims to support [M-Bus](https://m-bus.com/docu
 
 For protocol communication the Kaifa MA304 supports the [DLMS/COSEM](https://www.dlms.com/dlms-cosem/overview) standard instead of the M-Bus [data link](https://m-bus.com/documentation-wired/05-data-link-layer), [application](https://m-bus.com/documentation-wired/06-application-layer) and [network](https://m-bus.com/documentation-wired/07-network-layer) layers, over the top of the M-Bus physical layer.  This is a standard serial protocol running at 2400,8,N,1 with information encoded according to the DLMS/COSEM specs and OBIS objects (IEC 62056).
 
-The Kaifa MA304 reports serial data when the M-Bus port is powered every 2 seconds, with additional data every 10s and hour.  For more details see [this document](/static/files/S1001_Kaifa.HAN.OBIS.codes.KFM_001.pdf).
+The Kaifa MA304 reports serial data when the M-Bus port is powered every 2 seconds, with additional data every 10s and hour.  For more details see [this document](/static/files/S1001_Kaifa.HAN.OBIS.codes.KFM_001.pdf).  The wiring diagram for the Kaifa MA304 M-Bus/OBIS port is [here](/static/img/ma304_wiring.png).
