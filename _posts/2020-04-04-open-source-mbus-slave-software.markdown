@@ -7,7 +7,7 @@ tags:   pi mbus m-bus power energy hat master slave serial raspberry pi python
 
 During a quick search I couldn't find any open source software implementing an M-Bus slave.  There's [libmbus](https://github.com/rscada/libmbus) for the Master, but no obvious slave implementation I could use for some testing.  So I've written [pyMbusSlave](https://github.com/packom/pyMbusSlave) which is a minimial but complete slave implementation written in Python.
 
-It implements the two mandatory functions required by the [M-Bus specification]([M-Bus documentation](https://m-bus.com/documentation)):
+It implements the two mandatory functions required by the [M-Bus specification](https://m-bus.com/documentation):
 * SND_NKE (used by the Master to scan for Slaves)
 * REQ_UD2 (requests the slave's user data 2)
 
