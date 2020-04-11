@@ -1,17 +1,19 @@
 ---
 layout: post
-title:  "Reading a Kaifa MA304 Electricity Meter using a Raspberry Pi"
+title:  "Reading a Kaifa MA304 M-Bus Electricity Meter using a Raspberry Pi"
 date:   2020-04-01 9:00 +0000
 tags:   pi mbus m-bus obis dlms kaifa ma304 power energy hat master serial dlms cosem iec 62056
 ---
 
-Many properties in Norway and Sweden have had Kaifa MA304 smart meters rolled out to them in recent years.  Here's how to use a Raspberry Pi to read it remotely.
+Many properties in Norway and Sweden have had Kaifa MA304 smart meters with M-Bus support rolled out to them in recent years.  Here's how to use a Raspberry Pi to read it remotely.
 
 You will need:
 * An M-Bus Master like the [M-Bus Master Hat](https://www.packom.net/m-bus-master-hat/).
 * The [AMS Han Decoder](https://github.com/packom/ams-han-decoder) software.
 * A Raspberry Pi (any model with a 40 pin GPIO header will do).
 * An ethernet cable (CAT-5 is fine).
+
+Note there are different variants of the MA304 - some support M-Bus, some use standard serial.  This article is relevant to M-Bus ones.
 
 Follow these instructions at your own risk, and in particular steer clear of any mains voltage cables!
 
