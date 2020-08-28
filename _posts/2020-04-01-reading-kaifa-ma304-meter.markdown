@@ -13,7 +13,7 @@ Many properties in Norway and Sweden have had Kaifa MA304 smart meters with M-Bu
 
 You will need:
 * An M-Bus Master like the [M-Bus Master Hat](https://www.packom.net/m-bus-master-hat/).
-* The [AMS Han Decoder](https://github.com/packom/ams-han-decoder) software.
+* The [AMS Han Decoder](https://github.com/robinsmidsrod/ams-han-decoder) software.
 * A Raspberry Pi (any model with a 40 pin GPIO header will do).
 * An ethernet cable (CAT-5 is fine).
 
@@ -54,7 +54,7 @@ Tun these commands on your Pi (installed with Raspbian):
 ```
 sudo apt install libjson-perl
 sudo apt install libdigest-crc-perl
-wget https://raw.githubusercontent.com/packom/ams-han-decoder/master/ams_han_decoder.pl
+wget https://raw.githubusercontent.com/robinsmidsrod/ams-han-decoder/master/ams_han_decoder.pl
 chmod +x ams_han_decoder.pl
 ```
 
