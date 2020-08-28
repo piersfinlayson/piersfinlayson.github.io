@@ -9,6 +9,9 @@ tags:   pi mbus m-bus obis dlms kaifa ma304 power energy hat master serial dlms 
 
 *It may be that the Kaifa meter requires more power than the M-Bus Master Hat can drive - in which case you'd need an M-Bus Master which can provide more power.  The M-Bus Master hat provides 3 "unit loads" (ULs), which is 4.5mA provided over the bus.  The Kaifa specs suggest it may draw up to 50mA (>30 ULs).*
 
+*Updated 28 August 2020*
+*Now pointing at upstream version of [AMS Han Decoder repo](https://github.com/robinsmidsrod/ams-han-decoder), which has KFM_001 support merged in.*
+
 Many properties in Norway and Sweden have had Kaifa MA304 smart meters with M-Bus support rolled out to them in recent years.  Here's how to use a Raspberry Pi to read it remotely.
 
 You will need:
