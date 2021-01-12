@@ -5,7 +5,7 @@ date:   2021-01-12 7:00 +0000
 tags:   seeed seeedstudio pcb pcba
 ---
 
-Full Disclosure: I have not compensated in any way for this post by Seeed Studio (or anyone else).
+Full Disclosure: I have not been compensated in any way for this post by Seeed Studio (or anyone else).
 
 # Introduction
 
