@@ -19,6 +19,7 @@ tags:   pi mbus m-bus obis dlms kaifa ma304 power energy hat master serial dlms 
 
 Many properties in Norway and Sweden have had Kaifa MA304 smart meters with M-Bus support rolled out to them in recent years.  Here's how to use a Raspberry Pi to read it remotely.
 
+
 You will need:
 * An M-Bus Master like the [M-Bus Master Hat](https://www.packom.net/m-bus-master-hat/).
 * The [AMS Han Decoder](https://github.com/robinsmidsrod/ams-han-decoder) software.
