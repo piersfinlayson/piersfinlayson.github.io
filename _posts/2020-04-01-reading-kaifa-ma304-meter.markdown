@@ -7,10 +7,15 @@ tags:   pi mbus m-bus obis dlms kaifa ma304 power energy hat master serial dlms 
 
 *Updated 10 June 2020*
 
-*It may be that the Kaifa meter requires more power than the M-Bus Master Hat can drive - in which case you'd need an M-Bus Master which can provide more power.  The M-Bus Master hat provides 3 "unit loads" (ULs), which is 4.5mA provided over the bus.  The Kaifa specs suggest it may draw up to 50mA (>30 ULs).*
+*It may be that the Kaifa meter requires more power than the M-Bus Master Hat can drive - in which case you'd need an M-Bus Master which can provide more power.  The M-Bus Master hat provides 3 "unit loads" (ULs), which is 4.5mA provided over the bus.  The Kaifa specs suggest it may draw up to 50mA (>30 ULs).  However, people have reported getting the Kaifa working, so it may be that this is irrelevant, and that it is the polarity which is important to get right (see below).*
 
 *Updated 28 August 2020*
+
 *Now pointing at upstream version of [AMS Han Decoder repo](https://github.com/robinsmidsrod/ams-han-decoder), which has KFM_001 support merged in.*
+
+*Updated 16 May 2021*
+
+*I've had a report that the Kaifa MA304 does work with the M-Bus Master Hat, but the M-Bus connection of the meter is polarised - meaning that you must connect the cables to the Hat the correct way around.  I've been told that the brown wire should be connected to the terminal furthest from the Pi pin header (next to the red LED), and the black/white cable closest to the Pi pin header (next to the green LED).*
 
 Many properties in Norway and Sweden have had Kaifa MA304 smart meters with M-Bus support rolled out to them in recent years.  Here's how to use a Raspberry Pi to read it remotely.
 
@@ -46,7 +51,7 @@ If red LED of the M-Bus Master Hat is lit you're ready to continue.
 
 Take your ethernet cable and cut one of the ends off.
 
-Strip the white/brown and brown cables and insert into your M-Bus Master - either way around is fine.  Take care to use the correct colours - these should be connected to pins 7 & 8 of the remaining RJ-45 plug.
+Strip the white/brown and brown cables and insert into your M-Bus Master.  Connect the brown cable to the terminal next to the red LED, and the white/brown to the terminal next to the green LED.  Take care to use the correct colours - these should be connected to pins 7 & 8 of the remaining RJ-45 plug.
 
 Connect the remaining RJ-45 plug into your Kaifa MA304 meter's RJ-45 socket - you may have to lift a flap labelled M-Bus to access the socket.
 
