@@ -134,4 +134,5 @@ You may want to prune your docker install once you've finished - getting rid of 
 
 ```
 docker system prune
+docker image prune -a
 ```
