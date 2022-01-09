@@ -115,7 +115,7 @@ Save this script off (e.g. to update_one_version.sh) and then go through upgradi
 ./update_one_version.sh 9.5.10-ce.0
 ```
 
-One the container images are downloaded the process takes around 30 minutes 
+One the container images are downloaded the process takes an hour or so - probably depends on the size of your database (repos).
 
 ## Finishing up
 
