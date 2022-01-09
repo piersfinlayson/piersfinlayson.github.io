@@ -62,8 +62,7 @@ docker pull gitlab/gitlab-ce:12.10.14-ce.0
 docker pull gitlab/gitlab-ce:13.0.0-ce.0
 docker pull gitlab/gitlab-ce:13.12.15-ce.0
 docker pull gitlab/gitlab-ce:14.0.0-ce.0
-docker pull gitlab/gitlab-ce:14.6.1-ce.0
-docker pull gitlab/gitlab-ce:latest
+docker pull gitlab/gitlab-ce:14.0.12-ce.0 # version I decided to go with
 ```
 
 ## Now do the upgrade
@@ -128,7 +127,6 @@ RuntimeError
 ```
 
 However, the container restarted (as it was configured to do) and then came up successfully.
-
 
 ## Finishing up
 
