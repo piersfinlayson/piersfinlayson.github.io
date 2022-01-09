@@ -117,6 +117,19 @@ Save this script off (e.g. to update_one_version.sh) and then go through upgradi
 
 One the container images are downloaded the process takes an hour or so - probably depends on the size of your database (repos).
 
+I had one glitch, upgrading to 12.10.14-ce.0, hitting this error:
+
+```
+RuntimeError
+    ------------
+    Execution of the command `/opt/gitlab/embedded/bin/redis-cli -s /var/opt/gitlab/redis/redis.socket INFO` failed with a non-zero exit code (1)
+    stdout:
+    stderr: Could not connect to Redis at /var/opt/gitlab/redis/redis.socket: No such file or directory
+```
+
+However, the container restarted (as it was configured to do) and then came up successfully.
+
+
 ## Finishing up
 
 You may want to prune your docker install once you've finished - getting rid of unnecessary images:
