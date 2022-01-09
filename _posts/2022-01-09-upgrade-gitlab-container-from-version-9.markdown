@@ -20,7 +20,9 @@ Essentially you need to upgrade in stages, removing your old gitlab-ce container
 * 13.0.0-ce.0
 * 13.12.15-ce.0
 * 14.0.0-ce.0
-* 14.6.1-ce.0 # Latest as of writing
+* 14.0.12-ce.0 # Went to here - note to go higher requires 14.1.X as the next step
+
+See [this link](https://docs.gitlab.com/ee/update/index.html#upgrade-paths) - the X.0.0 steps may not be necessary
 
 ## First - Create a backup
 
