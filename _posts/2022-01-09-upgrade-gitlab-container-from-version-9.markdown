@@ -76,7 +76,7 @@ To upgrade to a new version there are 4 steps:
 * Monitor the logs, checking it succeeds
 * Run some manual checks to ensure you can log in and your repos are still there
 
-I wrote the following script to automate the first 4 steps above.  It takes the version to upgrade to as the only CLI arg. You will need to change the args as appropriate for your instance.
+I wrote the following script to automate the first 4 steps above.  It takes the version to upgrade to as the only CLI arg. You will need to change the variables as appropriate for your instance.
 
 ```
 #!/bin/bash
