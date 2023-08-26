@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Raspberry Pi Bare Metal Programming and -mno-unaligned-access"
-date:   2022-08-26 7:00 +0000
+date:   2023-08-26 7:00 +0000
 tags:   bare metal raspberry pi gcc no-unaligned-access pi1541 c64
 ---
 
