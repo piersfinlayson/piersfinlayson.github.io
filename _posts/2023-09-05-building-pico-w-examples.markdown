@@ -114,7 +114,7 @@ ssid: BTWholeHome-XXX                  rssi:  -91 chan:   1 mac: d4:86:60:xx:xx:
 ssid: playground                       rssi:  -32 chan:   7 mac: d8:3a:dd:xx:xx:xx sec: 5
 ssid: playground                       rssi:  -25 chan:   7 mac: d8:3a:dd:xx:xx:xx sec: 5
 ssid: playground                       rssi:  -25 chan:   7 mac: d8:3a:dd:xx:xx:xx sec: 5
-ssid: BTBHub6-S525                     rssi:  -85 chan:   6 mac: 00:cb:51:xx:xx:xx sec: 5
+ssid: BTBHub6-XXXX                     rssi:  -85 chan:   6 mac: 00:cb:51:xx:xx:xx sec: 5
 ssid: BTWi-fi                          rssi:  -84 chan:   6 mac: 02:cb:51:xx:xx:xx sec: 0
 ssid: playground                       rssi:  -26 chan:   7 mac: d8:3a:dd:xx:xx:xx sec: 5
 ssid: playground                       rssi:  -25 chan:   7 mac: d8:3a:dd:xx:xx:xx sec: 5
