@@ -2,7 +2,7 @@
 layout: post
 title:  "Installing the Raspberry Pi Pico C SDK and picotool, on a Raspberry Pi"
 date:   2023-09-05 7:02 +0000
-tags:   raspberry pi pico sdk pictool bare metal
+tags:   raspberry pi pico sdk picotool bare metal
 ---
 
 This post explains how to install the Pico C SDK and how to build and install picotool on a Raspberry Pi.
