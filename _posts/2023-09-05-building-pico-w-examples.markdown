@@ -7,7 +7,7 @@ tags:   raspberry pi pico sdk example bare metal
 
 This post explains how to build Pico W examples.  It assumes you already have
 * the SDK and picotool installed as described [here](installing-pico-sdk-and-picotool)
-* the ARM GNU toolchain, which you find instructions for installing [here](building-micropython-for-pico-w).
+* the ARM GNU toolchain, which you find instructions for installing [here](building-micropython-for-pico-w#arm-gnu-toolchain).
 
 ## Get the examples
 
