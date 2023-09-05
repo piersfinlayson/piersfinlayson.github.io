@@ -38,7 +38,6 @@ cd picotool
 
 ```
 export PICO_SDK_PATH=~/builds/pico-sdk
-cd picotool
 cmake .
 make -j 4
 ```
