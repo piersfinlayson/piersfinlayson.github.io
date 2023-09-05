@@ -5,8 +5,6 @@ date:   2023-09-05 7:00 +0000
 tags:   raspberry pi pico bare metal gcc arm python MicroPython
 ---
 
-# Building MicroPython from source for the Raspberry Pi Pico W
-
 Instructions for building MicroPython from source from a newly installed Raspberry Pi (with a 64-bit OS).  The Raspberry Pi official documentation for doing this is [here](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-python-sdk.pdf).
 
 ## ARM GNU Toolchain
