@@ -5,7 +5,7 @@ date:   2023-09-05 7:04 +0000
 tags:   raspberry pi pico sdk picotool bare metal
 ---
 
-This post explains how to create your own C SDK program for the Pico, and assumes you've already [insalled the SDK](installing-pico-sdk-and-picotool).
+This post explains how to create your own C SDK program for the Pico, and assumes you've already [installed the SDK](installing-pico-sdk-and-picotool).
 
 ## Write the code
 
