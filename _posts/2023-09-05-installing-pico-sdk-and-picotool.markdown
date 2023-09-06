@@ -48,7 +48,7 @@ make -j 4
 sudo make install
 ```
 
-To be able to run picotools without needing sudo:
+To be able to run picotool without needing sudo:
 
 ```
 sudo cp udev/99-picotool.rules /etc/udev/rules.d/
