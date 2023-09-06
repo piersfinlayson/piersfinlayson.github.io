@@ -11,7 +11,13 @@ Instructions for building MicroPython from source from a newly installed Raspber
 
 Get the ARM GNU bare metal toolchain.  These instructions get the version from ARM's developer website, rather than whatever version your linux distribution has.  Version 12.3.rel1 was the most up to date version at the time of writing, but you can check out the latest from [ARM's developer website](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads).
 * To build on a Raspberry Pi 64-bit for a Pico you need the "AArch64 linux hosted cross toolchain", "AArch32 bare-metal target" (arm-none-eabi).
-* If you're building a Pi with a 32-bit OS, you'll need the "AArch32 linux hosted cross toolchain instead", again for "AArch32 bare-metal target".
+  * Run the commands shown below.
+* If you're building on an x86_64 machine, you'll need "x86_64 Linux hosted cross toolchains", for arm-none-eabi.  Substitute these links and filenames on the two wget commands and below:
+  * [arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz](https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz?rev=dccb66bb394240a98b87f0f24e70e87d&hash=97EE9A221DB712D24F9FB455395AF0D487F61BFE)
+  * [arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz.sha256asc](https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz.sha256asc?rev=8c830bbb97954110bbf78af753a2f3b7&hash=4C9B58EC52ABC1122267D7461D13A0321B721BB4)
+* If you're building a Pi with a 32-bit OS, you'll need to install the GNU toolchain from your distribution, as ARM doesn't provide one directly.  On Raspberry Pi OS you need to install
+  * gcc-arm-none-eabi
+  * libnewlib-arm-none-eabi
 
 ```
 wget "https://developer.arm.com/-/media/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-aarch64-arm-none-eabi.tar.xz?rev=420215e7c8d14d90b5227eb5486d8c75&hash=147F00293D4A8065E7222F29A1BCD05BFE94DF88" -O /tmp/arm-gnu-toolchain-12.3.rel1-aarch64-arm-none-eabi.tar.xz

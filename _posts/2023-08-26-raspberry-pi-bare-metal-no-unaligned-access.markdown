@@ -42,7 +42,7 @@ I saw a number of different unaligned data accesses in the code (as often when I
  strh    r3, [r4, #55]
 ```
 
-STRH is an instruction to load a half-word (2 byte value) into a register.  As r4 was pointing to a 8-byte aligned value at the time of the execution the CPU was throwing an exception, because this instruction tells the CPU to load a half-word from a 55 bytes positive offset from thr address in register r4.
+STRH is an instruction to load a half-word (2 byte value) into a register.  As r4 was pointing to a 8-byte aligned value at the time of the execution the CPU was throwing an exception, because this instruction tells the CPU to load a half-word into a 55 bytes positive offset from the address in register r4.
 
 I was a bit confused as to why GCC would generate code which causes unaligned memory access, despite having the correct architecture settings from the processors.  These were:
 
