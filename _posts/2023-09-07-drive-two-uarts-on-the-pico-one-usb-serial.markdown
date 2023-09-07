@@ -2,7 +2,7 @@
 layout: post
 title:  "Drive two UARTs on the Pico, with UART1 used for USB serial"
 date:   2023-09-07 7:00 +0000
-tags:   raspberry pi pico sdk picotool bare metal docker dockerfile container uart uart1 usb serial
+tags:   raspberry pi pico sdk picotool bare metal uart uart1 usb serial
 ---
 
 [This program](https://github.com/piersfinlayson/pico-samples/tree/main/uarts) drives both UARTs on the Pico.
