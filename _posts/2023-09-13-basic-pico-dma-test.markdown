@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Basic DMA test program for the Pico"
-date:   2023-09-08 7:00 +0000
+date:   2023-09-13 7:00 +0000
 tags:   raspberry pi pico sdk picotool bare metal dma
 ---
 
