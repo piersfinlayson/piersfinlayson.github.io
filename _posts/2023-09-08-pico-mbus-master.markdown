@@ -17,7 +17,7 @@ I've tested this, naturally, with the [M-Bus Master Hat](https://www.packom.net/
 
 Wiring instructions are given in the [README](https://github.com/packom/pico-mbus/blob/main/README.md).
 
-Here is the Pico output from scanning my M-Bus test rig, with slaves configured at addresses 1, 2 and 48.
+Here is the Pico output from scanning my M-Bus test rig, using mbus-scan, with slaves configured at addresses 1, 2 and 48.
 
 ```
 ------------
@@ -45,5 +45,115 @@ M-Bus: Disconnect
 M-Bus: Free context
 M-Bus: Turn bus power off
 M-Bus: Pause for 10000ms before rescanning
+```
+
+Here is the Pico output from querying, using mbus-query, device at address 48.
 
 ```
+------------
+M-Bus: Turn bus power on
+M-Bus: Pause for 1000ms
+M-Bus: Create serial context
+M-Bus: Connect to serial
+M-Bus: Using UART0
+M-Bus: Set baudrate to 2400
+M-Bus: TX Pin: 0
+M-Bus: RX Pin: 1
+M-Bus: Set flow control: CTS off RTS off
+M-Bus: UART settings: Data 8 Stop 1 Parity 1
+M-Bus: Initialize slaves
+M-Bus: Primary address: 48
+M-Bus: Query complete - results:
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<MBusData>
+
+    <SlaveInformation>
+        <Id>30137315</Id>
+        <Manufacturer>ATS</Manufacturer>
+        <Version>1</Version>
+        <ProductName></ProductName>
+        <Medium>Heat: Outlet</Medium>
+        <AccessNumber>207</AccessNumber>
+        <Status>00</Status>
+        <Signature>0000</Signature>
+    </SlaveInformation>
+
+    <DataRecord id="0">
+        <Function>Instantaneous value</Function>
+        <StorageNumber>0</StorageNumber>
+        <Unit>Energy (kWh)</Unit>
+        <Value>0</Value>
+        <Timestamp>1970-01-01T00:00:16Z</Timestamp>
+    </DataRecord>
+
+    <DataRecord id="1">
+        <Function>Instantaneous value</Function>
+        <StorageNumber>0</StorageNumber>
+        <Unit>Volume (1e-2  m^3)</Unit>
+        <Value>5</Value>
+        <Timestamp>1970-01-01T00:00:16Z</Timestamp>
+    </DataRecord>
+
+    <DataRecord id="2">
+        <Function>Instantaneous value</Function>
+        <StorageNumber>0</StorageNumber>
+        <Unit>On time (hours)</Unit>
+        <Value>70254</Value>
+        <Timestamp>1970-01-01T00:00:16Z</Timestamp>
+    </DataRecord>
+
+    <DataRecord id="3">
+        <Function>Instantaneous value</Function>
+        <StorageNumber>0</StorageNumber>
+        <Unit>Power (kW)</Unit>
+        <Value>1</Value>
+        <Timestamp>1970-01-01T00:00:16Z</Timestamp>
+    </DataRecord>
+
+    <DataRecord id="4">
+        <Function>Instantaneous value</Function>
+        <StorageNumber>0</StorageNumber>
+        <Unit>Volume flow (m m^3/h)</Unit>
+        <Value>0</Value>
+        <Timestamp>1970-01-01T00:00:16Z</Timestamp>
+    </DataRecord>
+
+    <DataRecord id="5">
+        <Function>Instantaneous value</Function>
+        <StorageNumber>0</StorageNumber>
+        <Unit>Flow temperature (1e-2 deg C)</Unit>
+        <Value>1</Value>
+        <Timestamp>1970-01-01T00:00:16Z</Timestamp>
+    </DataRecord>
+
+    <DataRecord id="6">
+        <Function>Instantaneous value</Function>
+        <StorageNumber>0</StorageNumber>
+        <Unit>Return temperature (1e-2 deg C)</Unit>
+        <Value>1</Value>
+        <Timestamp>1970-01-01T00:00:16Z</Timestamp>
+    </DataRecord>
+
+    <DataRecord id="7">
+        <Function>Instantaneous value</Function>
+        <StorageNumber>0</StorageNumber>
+        <Unit>Temperature Difference (1e-2  deg C)</Unit>
+        <Value>1</Value>
+        <Timestamp>1970-01-01T00:00:16Z</Timestamp>
+    </DataRecord>
+
+    <DataRecord id="8">
+        <Function>Instantaneous value</Function>
+        <StorageNumber>1</StorageNumber>
+        <Unit>Time Point (date)</Unit>
+        <Value>2023-09-02</Value>
+        <Timestamp>1970-01-01T00:00:16Z</Timestamp>
+    </DataRecord>
+
+</MBusData>
+M-Bus: Disconnect
+M-Bus: Free context
+M-Bus: Turn bus power off
+M-Bus: Pause for 10000ms before requerying
+```
+
