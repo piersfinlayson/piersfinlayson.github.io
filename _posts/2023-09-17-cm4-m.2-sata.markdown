@@ -1,0 +1,662 @@
+---
+layout: post
+title:  "SATA via an M.2 slot using the Raspberry Pi Compute Module 4"
+date:   2023-09-17 7:00 +0000
+tags:   raspberry pi cm4 compute module m.2 sata m2 pcie
+---
+
+## tl;dr
+
+I have successfully used two different M.2 SSD form-factor SATA cards with the Raspberry Pi Compute Module 4.  Details of the cards:
+
+| Chipset  | SATA ports | Price | Form Factor | AliExpress Link |
+|:---:|:---:|:---:|:---:|:---:|
+|JMB585|5|£16.21|2280|[here](https://www.aliexpress.com/item/1005005334384015.html)|
+|ASM1166|6|£14.71|2280|[here](https://www.aliexpress.com/item/1005005529092415.html)|
+
+<p/>
+The ASM1166 is at the top of this image:
+
+![SATA boards top](/static/img/2023-09-17-sata-boards-top-rotated.jpg){:width="480px"}
+
+
+Prices were from August 2023, before tax.
+
+While having fewer ports and being more expensive, there are two reasons to prefer the JMB585:
+* It performed 10-30% faster in my (admittedly not comprehensive) testing.
+* The ASM1166 board suffers from an inability to seat properly in at least one M.2 socket I tried, causing it sometimes to be detected, sometimes not.
+
+However, as the ASM1166 has the extra port, the read/write speeds are still beyond my network speeds, and I think I can fix the ASM1166 seating issue with a file or piece of sandpaper, I will likely go with that for my NAS.
+
+I didn't have to add any kernel drivers to get these cards working - they worked straight out of the box using Raspberry Pi OS bullseye, kernel 6.1.21-v8+.
+
+## Introduction
+
+I've been planning to build a Pi or SBC based NAS for some time, so I can have a NAS running 24x7 without consuming oodles of power.  My current NAS draws about 50W when on, so at the current UK capped per unit electricity cost of 30p, this would cost about £130 per year if I left it on 24x7 (which I don't for exactly this reason).
+
+However, rather than using USB attached drives (which tend to be both slow and require USB-SATA adapters), I wanted a PCIe based solution.  The Raspberry Pi 4 does have PCIe support, but it's not exposed, and to expose it requires some [hardware mods](https://hackaday.com/2020/07/01/adding-pcie-to-your-raspberry-pi-4-the-easier-way/).
+
+I chickened out of making this mod to one of my Pi 4s, and instead have opted to use a [Compute Module 4](https://datasheets.raspberrypi.com/cm4/cm4-datasheet.pdf), for which you can get base boards which expose either a PCIe 2.0 1x slot, or an M.2 slot intended for a [NVMe](https://en.wikipedia.org/wiki/NVM_Express) SSD.  I had some hope of getting an M.2 SATA board working with the CM4 from [geerlingguy](https://www.jeffgeerling.com/)'s (him of [rpilocator](https://rpilocator.com/) fame) [Pi PCIe project](https://pipci.jeffgeerling.com/), where he has tested many different PCIe devices with the CM4 to check for compatibility.
+
+All of my testing has been done with:
+* Raspberry Pi CM4 1GB lite (no on-board eMMC storage) - because this was the only variant I could find in stock
+* [Waveshare Base Board C](https://www.waveshare.com/CM4-IO-BASE-C.htm) - because the Raspberry Pi Compute Module IO Board was out of stock, doesn't have an M.2 connector, and the Waveshare base board is compact
+* [Sintech M.2 NVME Extender](https://www.amazon.co.uk/Sintech-M-KEY-Extention-Cable-20CMS/dp/B07DZCCGJN) - because, well, we'll get to that shortly.
+
+Here's a photo of my test setup* with the JMB585 5-port SATA board.
+
+![CM4 on a Waveshare base board, with the Sintech extender attached, a JMB585-based 5-port SATA card installed, and 2 connected 500GB WD HDDs with power supply](/static/img/2023-09-17-cm4-m2-sata-test-setup.jpg){:width="640px"}
+
+(*) Actually, I did most of my testing with 2x18TB drives that arrived midway through writing this post.
+
+## Connecting the SATA Boards
+
+Here you can see both SATA boards side by side.  The JMB585 is on the left and ASM1166 on the right in all three images.
+
+Top | Side | Underneath
+:--:|:----:|:------------:
+![SATA boards top](/static/img/2023-09-17-sata-boards-top.jpg){:height="300px"} | ![SATA boards side](/static/img/2023-09-17-sata-boards-side.jpg){:height="300px"} | ![SATA boards underneath](/static/img/2023-09-17-sata-boards-underside.jpg){:height="300px"}
+
+<p/>
+Connecting them to the Waveshare base board was the most challenging part of getting the whole setup working.  Neither SATA board will sit properly when connected directly to the M.2 connector on the underside of the Waveshare base board, shown here:
+
+![Waveshare base board, upside down, showing off its ass, sorry I mean its M2 connector](/static/img/2023-09-17-waveshare-base-board-underside.jpg){:height="480px"}
+
+
+While both SATA boards are longer than the Waveshare board is designed for (you can see in the image above screw holes for 2230 and 2242 form factor boards, whereas both SATA boards are 2280) this is not the problem.  If they seated properly they would merely overhang the edge of the board.
+
+However, the problem is that both SATA board has components on the underside which foul with components on the Waveshare board, meaning neither will sit flat.  Here's a photo showing the ASM1166 board connected, with me applying as much downwards force as I'm comfortable with:
+
+![Waveshare base board, upside down, with ASM1166 6 port SATA board connected, and a finger pushig it down, but it not sitting flat](/static/img/2023-09-17-waveshare-and-asm1166-connected-directly.jpg){:width="640px"}
+
+Both boards are recognised by the CM4 when connected directly to the Waveshare, but I would not want to run them like like this for any period of time, so I needed to find another solution.  There's various [NVMe extension cable](https://www.google.co.uk/search?q=nvme+extension+cable) options available.  I went with the [Sintech M.2 NVME Extender](https://www.amazon.co.uk/Sintech-M-KEY-Extention-Cable-20CMS/dp/B07DZCCGJN), which is designed to mount in an M.2 connector with space for any of 2232, 2240, 2260 and 2280 SSDs, by snapping off the extra length.  (I subsequently found [this variant](https://www.amazon.co.uk/Sintech-NGFF-NVME-WiFi-Cable/dp/B07DZF1W55) which would probably also have worked and avoided me having to snap off the extra length).
+
+So, the solution then is to connect via the Sintech extender.  This worked fine for the JMB585 board, but not well for the ASM1166 board.  The ASM1166 does not make good contact with the Sintech extender, I think because the gold contacts do no extend close enough to the end of the board, and the Sintech connector seems not to be as "deep" as the Waveshare M.2 connector (into which the ASM1166 seats fine).  Connected to the Sintech, sometimes the ASM1166 is detected, sometimes not.  See this close-up for the difference in gold connectors between the boards - JMB585 on the left, ASM1166 on the right:
+
+![Close-up of the SATA board connectors showing ASM1166 gold connectors not extending close enough to the edge of the board](/static/img/2023-09-17-sata-boards-connectors.jpg){:width="640px"}
+
+
+## ASM1166 Testing
+
+For the remainder of the testing in this article, when using the ASM1166 I connected it directly to the Waveshare board, and left it flapping.  For a permanent solution I will file or sand the end of the ASM1166 connector away and use the Sintech.  This means the setup looks pretty sketchy (and by this time my 18TB disks had arrived, so I'm using them):
+
+![ASM1166 test setup - CM4 in Waveshare board, ASM1166 connected to Waveshare board, 2x18TB drives attached to ASM1166](/static/img/2023-09-17-asm1166-test-setup.jpg){:width="640px"}
+
+This is the boot output in ```/var/log/syslog```:
+
+```
+Sep 17 12:56:00 cm1 kernel: [    5.438728] ahci 0000:01:00.0: version 3.0
+Sep 17 12:56:00 cm1 kernel: [    5.438785] pci 0000:00:00.0: enabling device (0000 -> 0002)
+Sep 17 12:56:00 cm1 kernel: [    5.438824] ahci 0000:01:00.0: enabling device (0000 -> 0002)
+Sep 17 12:56:00 cm1 kernel: [    5.439958] ahci 0000:01:00.0: SSS flag set, parallel bus scan disabled
+Sep 17 12:56:00 cm1 kernel: [    5.451151] ahci 0000:01:00.0: AHCI 0001.0301 32 slots 32 ports 6 Gbps 0xffffff3f impl SATA mode
+Sep 17 12:56:00 cm1 kernel: [    5.451192] ahci 0000:01:00.0: flags: 64bit ncq sntf stag pm led only pio sxs deso sadm sds apst
+Sep 17 12:56:00 cm1 kernel: [    5.548188] scsi host0: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.555037] scsi host1: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.564013] scsi host2: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.575513] scsi host3: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.596403] scsi host4: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.608022] scsi host5: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.640070] scsi host6: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.652043] scsi host7: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.674592] scsi host8: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.684068] scsi host9: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.696040] scsi host10: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.712029] scsi host11: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.724116] scsi host12: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.768542] scsi host13: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.800367] scsi host14: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.818989] scsi host15: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.849982] scsi host16: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.868247] scsi host17: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.881810] scsi host18: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.885468] scsi host19: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.901798] scsi host20: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.914371] scsi host21: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.928079] scsi host22: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.940320] scsi host23: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.960080] scsi host24: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.976556] scsi host25: ahci
+Sep 17 12:56:00 cm1 kernel: [    5.996126] scsi host26: ahci
+Sep 17 12:56:00 cm1 kernel: [    6.008244] scsi host27: ahci
+Sep 17 12:56:00 cm1 kernel: [    6.061629] scsi host28: ahci
+Sep 17 12:56:00 cm1 kernel: [    6.073598] scsi host29: ahci
+Sep 17 12:56:00 cm1 kernel: [    6.085690] scsi host30: ahci
+Sep 17 12:56:00 cm1 kernel: [    6.096055] scsi host31: ahci
+Sep 17 12:56:00 cm1 kernel: [    6.096455] ata1: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082100 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096477] ata2: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082180 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096492] ata3: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082200 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096506] ata4: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082280 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096520] ata5: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082300 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096534] ata6: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082380 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096546] ata7: DUMMY
+Sep 17 12:56:00 cm1 kernel: [    6.096557] ata8: DUMMY
+Sep 17 12:56:00 cm1 kernel: [    6.096569] ata9: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082500 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096582] ata10: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082580 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096596] ata11: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082600 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096609] ata12: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082680 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096623] ata13: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082700 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096637] ata14: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082780 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096651] ata15: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082800 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096664] ata16: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082880 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096678] ata17: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082900 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096692] ata18: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082980 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096705] ata19: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082a00 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096719] ata20: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082a80 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096732] ata21: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082b00 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096746] ata22: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082b80 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096760] ata23: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082c00 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096774] ata24: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082c80 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096788] ata25: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082d00 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096801] ata26: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082d80 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096815] ata27: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082e00 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096828] ata28: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082e80 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096842] ata29: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082f00 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096855] ata30: SATA max UDMA/133 abar m8192@0x600082000 port 0x600082f80 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096868] ata31: SATA max UDMA/133 abar m8192@0x600082000 port 0x600083000 irq 40
+Sep 17 12:56:00 cm1 kernel: [    6.096882] ata32: SATA max UDMA/133 abar m8192@0x600082000 port 0x600083080 irq 40
+Sep 17 12:56:00 cm1 kernel: [    7.383801] ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+Sep 17 12:56:00 cm1 kernel: [    7.386834] ata1.00: ATA-11: TOSHIBA MG09ACA18TE, 0105, max UDMA/133
+Sep 17 12:56:00 cm1 kernel: [    7.393826] ata1.00: 35156656128 sectors, multi 16: LBA48 NCQ (depth 32), AA
+Sep 17 12:56:00 cm1 kernel: [    7.394130] ata1.00: Features: NCQ-prio
+Sep 17 12:56:00 cm1 kernel: [    7.404373] ata1.00: configured for UDMA/133
+Sep 17 12:56:00 cm1 kernel: [    7.404898] scsi 0:0:0:0: Direct-Access     ATA      TOSHIBA MG09ACA1 0105 PQ: 0 ANSI: 5
+Sep 17 12:56:00 cm1 kernel: [    7.406903] sd 0:0:0:0: [sda] 35156656128 512-byte logical blocks: (18.0 TB/16.4 TiB)
+Sep 17 12:56:00 cm1 kernel: [    7.406929] sd 0:0:0:0: [sda] 4096-byte physical blocks
+Sep 17 12:56:00 cm1 kernel: [    7.407029] sd 0:0:0:0: [sda] Write Protect is off
+Sep 17 12:56:00 cm1 kernel: [    7.407047] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+Sep 17 12:56:00 cm1 kernel: [    7.407221] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+Sep 17 12:56:00 cm1 kernel: [    7.407446] sd 0:0:0:0: [sda] Preferred minimum I/O size 4096 bytes
+Sep 17 12:56:00 cm1 kernel: [    7.426951] sd 0:0:0:0: [sda] Attached SCSI disk
+Sep 17 12:56:00 cm1 kernel: [    7.720026] ata2: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+Sep 17 12:56:00 cm1 kernel: [    7.724567] ata2.00: ATA-11: TOSHIBA MG09ACA18TE, 0105, max UDMA/133
+Sep 17 12:56:00 cm1 kernel: [    7.733967] ata2.00: 35156656128 sectors, multi 16: LBA48 NCQ (depth 32), AA
+Sep 17 12:56:00 cm1 kernel: [    7.734272] ata2.00: Features: NCQ-prio
+Sep 17 12:56:00 cm1 kernel: [    7.755024] ata2.00: configured for UDMA/133
+Sep 17 12:56:00 cm1 kernel: [    7.756834] scsi 1:0:0:0: Direct-Access     ATA      TOSHIBA MG09ACA1 0105 PQ: 0 ANSI: 5
+Sep 17 12:56:00 cm1 kernel: [    7.759222] sd 1:0:0:0: [sdb] 35156656128 512-byte logical blocks: (18.0 TB/16.4 TiB)
+Sep 17 12:56:00 cm1 kernel: [    7.759312] sd 1:0:0:0: [sdb] 4096-byte physical blocks
+Sep 17 12:56:00 cm1 kernel: [    7.759543] sd 1:0:0:0: [sdb] Write Protect is off
+Sep 17 12:56:00 cm1 kernel: [    7.759562] sd 1:0:0:0: [sdb] Mode Sense: 00 3a 00 00
+Sep 17 12:56:00 cm1 kernel: [    7.759793] sd 1:0:0:0: [sdb] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+Sep 17 12:56:00 cm1 kernel: [    7.760099] sd 1:0:0:0: [sdb] Preferred minimum I/O size 4096 bytes
+Sep 17 12:56:00 cm1 kernel: [    7.781696] sd 1:0:0:0: [sdb] Attached SCSI disk
+Sep 17 12:56:00 cm1 kernel: [    8.073617] ata3: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:01 cm1 kernel: [    8.388594] ata4: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:01 cm1 kernel: [    8.703831] ata5: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:01 cm1 kernel: [    9.023309] ata6: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:02 cm1 kernel: [    9.342436] ata9: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:02 cm1 kernel: [    9.659157] ata10: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:02 cm1 kernel: [    9.978099] ata11: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:03 cm1 kernel: [   10.290076] ata12: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:03 cm1 kernel: [   10.602054] ata13: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:03 cm1 kernel: [   10.914083] ata14: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:03 cm1 kernel: [   11.229990] ata15: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:04 cm1 kernel: [   11.546022] ata16: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:04 cm1 kernel: [   11.862000] ata17: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:04 cm1 kernel: [   12.173973] ata18: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:05 cm1 kernel: [   12.485967] ata19: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:05 cm1 kernel: [   12.797965] ata20: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:05 cm1 kernel: [   13.109970] ata21: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:06 cm1 kernel: [   13.421972] ata22: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:06 cm1 kernel: [   13.733959] ata23: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:06 cm1 kernel: [   14.045961] ata24: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:07 cm1 kernel: [   14.358151] ata25: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:07 cm1 kernel: [   14.670349] ata26: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:07 cm1 kernel: [   14.982306] ata27: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:08 cm1 kernel: [   15.294303] ata28: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:08 cm1 kernel: [   15.606332] ata29: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:08 cm1 kernel: [   15.918454] ata30: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:09 cm1 kernel: [   16.234360] ata31: SATA link down (SStatus 0 SControl 300)
+Sep 17 12:56:09 cm1 kernel: [   16.546327] ata32: SATA link down (SStatus 0 SControl 300)
+```
+
+I find it entertaining that ata devices 7 and 8 are dummied out:
+```
+Sep 17 12:56:00 cm1 kernel: [    6.096546] ata7: DUMMY
+Sep 17 12:56:00 cm1 kernel: [    6.096557] ata8: DUMMY
+```
+
+But devices 9-32 are not!  I can't immediately find an ASM1166 datasheet, but [asmedia's website](https://www.asmedia.com.tw/product/45aYq54sP8Qh7WH8/58dYQ8bxZ4UR9wG5) clearly states this chip supports 6 SATA Gen3 ports, so I'm not sure why 32 are being detected.  I guess the driver (ahci) is unable to detect the correct number, or something on the board itself is reporting the wrong number.
+
+Anyhow, we can clearly see that ata1 and ata2 have my 18TB drives attached.  Hurrah!
+
+```lspci``` shows:
+
+```
+00:00.0 PCI bridge: Broadcom Inc. and subsidiaries BCM2711 PCIe Bridge (rev 20)
+01:00.0 SATA controller: ASMedia Technology Inc. Device 1166 (rev 02)
+```
+
+```sudo lspci -v``` shows:
+
+```
+00:00.0 PCI bridge: Broadcom Inc. and subsidiaries BCM2711 PCIe Bridge (rev 20) (prog-if 00 [Normal decode])
+        Device tree node: /sys/firmware/devicetree/base/scb/pcie@7d500000/pci@0,0
+        Flags: bus master, fast devsel, latency 0
+        Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
+        I/O behind bridge: 00000000-00000fff [size=4K]
+        Memory behind bridge: c0000000-c00fffff [size=1M]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [48] Power Management version 3
+        Capabilities: [ac] Express Root Port (Slot-), MSI 00
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [180] Vendor Specific Information: ID=0000 Rev=0 Len=028 <?>
+        Capabilities: [240] L1 PM Substates
+
+01:00.0 SATA controller: ASMedia Technology Inc. Device 1166 (rev 02) (prog-if 01 [AHCI 1.0])
+        Subsystem: ZyDAS Technology Corp. Device 2116
+        Flags: bus master, fast devsel, latency 0, IRQ 40
+        Memory at 600080000 (32-bit, non-prefetchable) [size=8K]
+        Memory at 600082000 (32-bit, non-prefetchable) [size=8K]
+        Expansion ROM at 600000000 [virtual] [disabled] [size=512K]
+        Capabilities: [40] Power Management version 3
+        Capabilities: [50] MSI: Enable+ Count=1/1 Maskable- 64bit+
+        Capabilities: [80] Express Endpoint, MSI 00
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [130] Secondary PCI Express
+        Kernel driver in use: ahci
+        Kernel modules: ahci
+```
+
+```sudo fdisk -x /dev/sda /dev/sdb``` gives:
+
+```
+Disk /dev/sda: 16.37 TiB, 18000207937536 bytes, 35156656128 sectors
+Disk model: TOSHIBA MG09ACA1
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/sdb: 16.37 TiB, 18000207937536 bytes, 35156656128 sectors
+Disk model: TOSHIBA MG09ACA1
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+```
+
+All looks good to me so far.  Doing a quick dd write test:
+
+```
+sudo dd if=/dev/zero of=/dev/sda bs=256M status=progress oflag=sync
+```
+
+```
+3758096384 bytes (3.8 GB, 3.5 GiB) copied, 22 s, 170 MB/s^C
+```
+
+And on the other drive:
+
+```
+4026531840 bytes (4.0 GB, 3.8 GiB) copied, 24 s, 169 MB/s^C
+```
+
+And an hdparm read test:
+
+```
+sudo hdparm -Tt /dev/sda /dev/sdb
+```
+
+```
+/dev/sda:
+ Timing cached reads:   1968 MB in  2.00 seconds = 986.30 MB/sec
+ Timing buffered disk reads: 592 MB in  3.01 seconds = 196.97 MB/sec
+
+/dev/sdb:
+ Timing cached reads:   1984 MB in  2.00 seconds = 993.93 MB/sec
+ Timing buffered disk reads: 594 MB in  3.01 seconds = 197.48 MB/sec
+```
+
+As expected, as this is using SATA via PCIe, there's no need to specify the device type when using smartctl:
+
+```
+sudo smartctl -a /dev/sda
+```
+
+```
+smartctl 7.2 2020-12-30 r5155 [aarch64-linux-6.1.21-v8+] (local build)
+Copyright (C) 2002-20, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Device Model:     TOSHIBA MG09ACA18TE
+Serial Number:    XXXXXXXXXXXX
+LU WWN Device Id: X XXXXXX XXXXXXXX
+Firmware Version: 0105
+User Capacity:    18,000,207,937,536 bytes [18.0 TB]
+Sector Sizes:     512 bytes logical, 4096 bytes physical
+Rotation Rate:    7200 rpm
+Form Factor:      3.5 inches
+Device is:        Not in smartctl database [for details use: -P showall]
+ATA Version is:   ACS-4 T13/BSR INCITS 529 revision 5
+SATA Version is:  SATA 3.3, 6.0 Gb/s (current: 6.0 Gb/s)
+Local Time is:    Sun Sep 17 13:21:55 2023 BST
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+
+General SMART Values:
+Offline data collection status:  (0x80) Offline data collection activity
+                                        was never started.
+                                        Auto Offline Data Collection: Enabled.
+Self-test execution status:      (   0) The previous self-test routine completed
+                                        without error or no self-test has ever
+                                        been run.
+Total time to complete Offline
+data collection:                (  120) seconds.
+Offline data collection
+capabilities:                    (0x5b) SMART execute Offline immediate.
+                                        Auto Offline data collection on/off support.
+                                        Suspend Offline collection upon new
+                                        command.
+                                        Offline surface scan supported.
+                                        Self-test supported.
+                                        No Conveyance Self-test supported.
+                                        Selective Self-test supported.
+SMART capabilities:            (0x0003) Saves SMART data before entering
+                                        power-saving mode.
+                                        Supports SMART auto save timer.
+Error logging capability:        (0x01) Error logging supported.
+                                        General Purpose Logging supported.
+Short self-test routine
+recommended polling time:        (   2) minutes.
+Extended self-test routine
+recommended polling time:        (1522) minutes.
+SCT capabilities:              (0x003d) SCT Status supported.
+                                        SCT Error Recovery Control supported.
+                                        SCT Feature Control supported.
+                                        SCT Data Table supported.
+
+SMART Attributes Data Structure revision number: 16
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  1 Raw_Read_Error_Rate     0x000b   100   100   050    Pre-fail  Always       -       0
+  2 Throughput_Performance  0x0005   100   100   050    Pre-fail  Offline      -       0
+  3 Spin_Up_Time            0x0027   100   100   001    Pre-fail  Always       -       8959
+  4 Start_Stop_Count        0x0032   100   100   000    Old_age   Always       -       1
+  5 Reallocated_Sector_Ct   0x0033   100   100   010    Pre-fail  Always       -       0
+  7 Seek_Error_Rate         0x000b   100   100   050    Pre-fail  Always       -       0
+  8 Seek_Time_Performance   0x0005   100   100   050    Pre-fail  Offline      -       0
+  9 Power_On_Hours          0x0032   100   100   000    Old_age   Always       -       0
+ 10 Spin_Retry_Count        0x0033   100   100   030    Pre-fail  Always       -       0
+ 12 Power_Cycle_Count       0x0032   100   100   000    Old_age   Always       -       1
+ 23 Unknown_Attribute       0x0023   100   100   075    Pre-fail  Always       -       0
+ 24 Unknown_Attribute       0x0023   100   100   075    Pre-fail  Always       -       0
+ 27 Unknown_Attribute       0x0023   100   100   030    Pre-fail  Always       -       16715549
+191 G-Sense_Error_Rate      0x0032   100   100   000    Old_age   Always       -       0
+192 Power-Off_Retract_Count 0x0032   100   100   000    Old_age   Always       -       0
+193 Load_Cycle_Count        0x0032   100   100   000    Old_age   Always       -       1
+194 Temperature_Celsius     0x0022   100   100   000    Old_age   Always       -       30 (Min/Max 18/30)
+196 Reallocated_Event_Count 0x0033   100   100   010    Pre-fail  Always       -       0
+197 Current_Pending_Sector  0x0032   100   100   000    Old_age   Always       -       0
+198 Offline_Uncorrectable   0x0030   100   100   000    Old_age   Offline      -       0
+199 UDMA_CRC_Error_Count    0x0032   200   200   000    Old_age   Always       -       0
+220 Disk_Shift              0x0002   100   100   000    Old_age   Always       -       1441792
+222 Loaded_Hours            0x0032   100   100   000    Old_age   Always       -       0
+223 Load_Retry_Count        0x0032   100   100   000    Old_age   Always       -       0
+224 Load_Friction           0x0022   100   100   000    Old_age   Always       -       0
+226 Load-in_Time            0x0026   100   100   000    Old_age   Always       -       687
+240 Head_Flying_Hours       0x0001   100   100   001    Pre-fail  Offline      -       0
+241 Total_LBAs_Written      0x0032   100   100   000    Old_age   Always       -       10223616
+242 Total_LBAs_Read         0x0032   100   100   000    Old_age   Always       -       14704
+
+SMART Error Log Version: 1
+No Errors Logged
+
+SMART Self-test log structure revision number 1
+No self-tests have been logged.  [To run self-tests, use: smartctl -t]
+
+SMART Selective self-test log data structure revision number 1
+ SPAN  MIN_LBA  MAX_LBA  CURRENT_TEST_STATUS
+    1        0        0  Not_testing
+    2        0        0  Not_testing
+    3        0        0  Not_testing
+    4        0        0  Not_testing
+    5        0        0  Not_testing
+Selective self-test flags (0x0):
+  After scanning selected spans, do NOT read-scan remainder of disk.
+If Selective self-test is pending on power-up, resume after 0 minute delay.
+```
+
+## JMB585 Testing
+
+A slightly less hokey setup this time:
+
+![ASM1166 test setup - CM4 in Waveshare board, Sintech M.2 extender, connected to JMB585 board, 2x18TB drives attached to JMB585](/static/img/2023-09-17-jmb585-test-setup.jpg){:width="640px"}
+
+```/var/log/syslog``` output during boot:
+
+```
+Sep 17 13:27:51 cm1 kernel: [    4.921688] ahci 0000:01:00.0: version 3.0
+Sep 17 13:27:51 cm1 kernel: [    4.921742] pci 0000:00:00.0: enabling device (0000 -> 0002)
+Sep 17 13:27:51 cm1 kernel: [    4.921780] ahci 0000:01:00.0: enabling device (0000 -> 0002)
+Sep 17 13:27:51 cm1 kernel: [    4.922210] ahci 0000:01:00.0: SSS flag set, parallel bus scan disabled
+Sep 17 13:27:51 cm1 kernel: [    4.922301] ahci 0000:01:00.0: AHCI 0001.0301 32 slots 5 ports 6 Gbps 0x1f impl SATA mode
+Sep 17 13:27:51 cm1 kernel: [    4.922325] ahci 0000:01:00.0: flags: 64bit ncq sntf stag pm led clo pmp fbs pio slum part ccc apst boh
+Sep 17 13:27:51 cm1 kernel: [    4.956175] scsi host0: ahci
+Sep 17 13:27:51 cm1 kernel: [    4.957982] scsi host1: ahci
+Sep 17 13:27:51 cm1 kernel: [    4.964675] scsi host2: ahci
+Sep 17 13:27:51 cm1 kernel: [    4.965656] scsi host3: ahci
+Sep 17 13:27:51 cm1 kernel: [    4.966653] scsi host4: ahci
+Sep 17 13:27:51 cm1 kernel: [    4.967026] ata1: SATA max UDMA/133 abar m8192@0x600010000 port 0x600010100 irq 39
+Sep 17 13:27:51 cm1 kernel: [    4.967049] ata2: SATA max UDMA/133 abar m8192@0x600010000 port 0x600010180 irq 39
+Sep 17 13:27:51 cm1 kernel: [    4.967064] ata3: SATA max UDMA/133 abar m8192@0x600010000 port 0x600010200 irq 39
+Sep 17 13:27:51 cm1 kernel: [    4.967077] ata4: SATA max UDMA/133 abar m8192@0x600010000 port 0x600010280 irq 39
+Sep 17 13:27:51 cm1 kernel: [    4.967090] ata5: SATA max UDMA/133 abar m8192@0x600010000 port 0x600010300 irq 39
+Sep 17 13:27:51 cm1 kernel: [    5.444067] ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+Sep 17 13:27:51 cm1 kernel: [    5.447135] ata1.00: ATA-11: TOSHIBA MG09ACA18TE, 0105, max UDMA/133
+Sep 17 13:27:51 cm1 kernel: [    5.453599] ata1.00: 35156656128 sectors, multi 16: LBA48 NCQ (depth 32), AA
+Sep 17 13:27:51 cm1 kernel: [    5.453891] ata1.00: Features: NCQ-prio
+Sep 17 13:27:51 cm1 kernel: [    5.466139] ata1.00: configured for UDMA/133
+Sep 17 13:27:51 cm1 kernel: [    5.466684] scsi 0:0:0:0: Direct-Access     ATA      TOSHIBA MG09ACA1 0105 PQ: 0 ANSI: 5
+Sep 17 13:27:51 cm1 kernel: [    5.470292] sd 0:0:0:0: [sda] 35156656128 512-byte logical blocks: (18.0 TB/16.4 TiB)
+Sep 17 13:27:51 cm1 kernel: [    5.470324] sd 0:0:0:0: [sda] 4096-byte physical blocks
+Sep 17 13:27:51 cm1 kernel: [    5.470431] sd 0:0:0:0: [sda] Write Protect is off
+Sep 17 13:27:51 cm1 kernel: [    5.470450] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+Sep 17 13:27:51 cm1 kernel: [    5.470605] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+Sep 17 13:27:51 cm1 kernel: [    5.470821] sd 0:0:0:0: [sda] Preferred minimum I/O size 4096 bytes
+Sep 17 13:27:51 cm1 kernel: [    5.939831] ata2: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+Sep 17 13:27:51 cm1 kernel: [    5.943482] ata2.00: ATA-11: TOSHIBA MG09ACA18TE, 0105, max UDMA/133
+Sep 17 13:27:51 cm1 kernel: [    5.952247] ata2.00: 35156656128 sectors, multi 16: LBA48 NCQ (depth 32), AA
+Sep 17 13:27:51 cm1 kernel: [    5.952772] ata2.00: Features: NCQ-prio
+Sep 17 13:27:51 cm1 kernel: [    5.963530] ata2.00: configured for UDMA/133
+Sep 17 13:27:51 cm1 kernel: [    5.964166] scsi 1:0:0:0: Direct-Access     ATA      TOSHIBA MG09ACA1 0105 PQ: 0 ANSI: 5
+Sep 17 13:27:51 cm1 kernel: [    5.968791] sd 1:0:0:0: [sdb] 35156656128 512-byte logical blocks: (18.0 TB/16.4 TiB)
+Sep 17 13:27:51 cm1 kernel: [    5.968823] sd 1:0:0:0: [sdb] 4096-byte physical blocks
+Sep 17 13:27:51 cm1 kernel: [    5.969467] sd 1:0:0:0: [sdb] Write Protect is off
+Sep 17 13:27:51 cm1 kernel: [    5.969494] sd 1:0:0:0: [sdb] Mode Sense: 00 3a 00 00
+Sep 17 13:27:51 cm1 kernel: [    5.969686] sd 1:0:0:0: [sdb] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+Sep 17 13:27:51 cm1 kernel: [    5.969929] sd 1:0:0:0: [sdb] Preferred minimum I/O size 4096 bytes
+Sep 17 13:27:52 cm1 kernel: [    6.284199] ata3: SATA link down (SStatus 0 SControl 300)
+Sep 17 13:27:52 cm1 kernel: [    6.602692] ata4: SATA link down (SStatus 0 SControl 300)
+Sep 17 13:27:52 cm1 kernel: [    6.916325] ata5: SATA link down (SStatus 0 SControl 300)
+Sep 17 13:28:03 cm1 kernel: [   17.551941] sd 0:0:0:0: [sda] Attached SCSI disk
+Sep 17 13:28:03 cm1 kernel: [   17.899076] sd 1:0:0:0: [sdb] Attached SCSI disk
+Sep 17 13:28:04 cm1 kernel: [   18.502961] sd 0:0:0:0: Attached scsi generic sg0 type 0
+Sep 17 13:28:04 cm1 kernel: [   18.503201] sd 1:0:0:0: Attached scsi generic sg1 type 0
+```
+
+This time ```lspci``` gives:
+
+```
+00:00.0 PCI bridge: Broadcom Inc. and subsidiaries BCM2711 PCIe Bridge (rev 20)
+01:00.0 SATA controller: JMicron Technology Corp. JMB58x AHCI SATA controller
+```
+
+And ```sudo lspci -v```:
+
+```
+<cut 00.00.0 - same as above>
+
+01:00.0 SATA controller: JMicron Technology Corp. JMB58x AHCI SATA controller (prog-if 01 [AHCI 1.0])
+        Subsystem: JMicron Technology Corp. JMB58x AHCI SATA controller
+        Flags: bus master, fast devsel, latency 0, IRQ 39
+        I/O ports at <unassigned> [disabled]
+        I/O ports at <unassigned> [disabled]
+        I/O ports at <unassigned> [disabled]
+        I/O ports at <unassigned> [disabled]
+        I/O ports at <unassigned> [disabled]
+        Memory at 600010000 (32-bit, non-prefetchable) [size=8K]
+        Expansion ROM at 600000000 [virtual] [disabled] [size=64K]
+        Capabilities: [80] Power Management version 3
+        Capabilities: [90] MSI: Enable+ Count=1/8 Maskable- 64bit+
+        Capabilities: [c0] Express Legacy Endpoint, MSI 00
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [150] Device Serial Number 00-00-00-00-00-00-00-00
+        Capabilities: [160] Power Budgeting <?>
+        Capabilities: [1b8] Latency Tolerance Reporting
+        Capabilities: [300] Secondary PCI Express
+        Capabilities: [900] L1 PM Substates
+        Kernel driver in use: ahci
+        Kernel modules: ahci
+```
+
+Skipping running fdisk and smartctl as the output is (as expected) identical to the ASM1166.
+
+Here are the results of the dd write test:
+
+```
+/dev/sda: 4026531840 bytes (4.0 GB, 3.8 GiB) copied, 18 s, 223 MB/s^C
+/dev/sdb: 4026531840 bytes (4.0 GB, 3.8 GiB) copied, 19 s, 212 MB/s^C
+```
+
+This is substantially (10%) faster than the ASM1166.
+
+The hdparm read test gives:
+
+```
+/dev/sda:
+ Timing cached reads:   1994 MB in  2.00 seconds = 998.65 MB/sec
+ Timing buffered disk reads: 806 MB in  3.01 seconds = 268.12 MB/sec
+
+/dev/sdb:
+ Timing cached reads:   2210 MB in  2.00 seconds = 1107.76 MB/sec
+ Timing buffered disk reads: 764 MB in  3.00 seconds = 254.55 MB/sec
+```
+
+This is, again, substantially (20-30%) faster for the buffer disk reads test.
+
+## Setting up RAID
+
+One of the primary use cases for the NAS I'm planning to build is to store large amounts of media files.  While I backup most of my existing NAS, I do not backup these media files, due to their size.  Hence I've decided to go with RAID1 (mirrored drives) for storing this media.
+
+I used mdadm to set it up - no partition table or partitions are necessary on the drives, as mdadm will set these up automatically:
+
+```
+sudo apt install mdadm
+sudo mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sda /dev/sdb
+```
+
+```
+mdadm: Note: this array has metadata at the start and
+    may not be suitable as a boot device.  If you plan to
+    store '/boot' on this device please ensure that
+    your boot-loader understands md/v1.x metadata, or use
+    --metadata=0.90
+mdadm: size set to 17578195968K
+mdadm: automatically enabling write-intent bitmap on large array
+Continue creating array?
+```
+
+Hit ```y``` to continue:
+
+```
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.
+```
+
+Querying the array with:
+
+```
+sudo mdadm --detail /dev/md0
+```
+
+Gives:
+
+```
+/dev/md0:
+           Version : 1.2
+     Creation Time : Sun Sep 17 13:56:17 2023
+        Raid Level : raid1
+        Array Size : 17578195968 (16763.87 GiB 18000.07 GB)
+     Used Dev Size : 17578195968 (16763.87 GiB 18000.07 GB)
+      Raid Devices : 2
+     Total Devices : 2
+       Persistence : Superblock is persistent
+
+     Intent Bitmap : Internal
+
+       Update Time : Sun Sep 17 13:56:43 2023
+             State : clean, resyncing
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+
+Consistency Policy : bitmap
+
+     Resync Status : 0% complete
+
+              Name : cm1:0  (local to host cm1)
+              UUID : xxxxxxxx:xxxxxxxx:xxxxxxxx:xxxxxxxx
+            Events : 6
+
+    Number   Major   Minor   RaidDevice State
+       0       8        0        0      active sync   /dev/sda
+       1       8       16        1      active sync   /dev/sdb
+```
+
+I now need to create a filesystem on the RAID device ```/dev/md0```:
+
+```
+sudo mkfs.ext4 -F /dev/md0
+```
+
+```
+mke2fs 1.46.2 (28-Feb-2021)
+Creating filesystem with 4394548992 4k blocks and 274659328 inodes
+Filesystem UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+        4096000, 7962624, 11239424, 20480000, 23887872, 71663616, 78675968,
+        102400000, 214990848, 512000000, 550731776, 644972544, 1934917632,
+        2560000000, 3855122432
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (262144 blocks): done
+Writing superblocks and filesystem accounting information: done
+```
+
+The array is now ready to mount:
+
+```
+sudo mount /dev/md0 /mnt
+```
+
+Obviously I'll chose a better mount-point later!
+
+Now I can test write performance by writing a 4GB file:
+
+```
+sudo dd if=/dev/zero of=/mnt/testfile.bin bs=128M count=32
+```
+
+```
+4294967296 bytes (4.3 GB, 4.0 GiB) copied, 22.3135 s, 192 MB/s
+```
+
+And testing read speed:
+
+```
+sudo dd if=/mnt/testfile.bin of=/dev/null bs=128M count=32
+```
+
+```
+4294967296 bytes (4.3 GB, 4.0 GiB) copied, 37.2076 s, 115 MB/s
+```
+
+
+These are quite satisfactory speeds, as my home network is all 1GigE, so I won't be reading or writing any faster than around 112MB/s.  It also worth noting that during these final tests the array was in the process of resyncing - it is possible this affected the speeds.
