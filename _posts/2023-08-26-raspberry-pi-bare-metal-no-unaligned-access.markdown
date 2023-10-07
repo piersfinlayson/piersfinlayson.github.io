@@ -28,6 +28,8 @@ And for the Raspberry Pi 2B:
 -march=armv7-a -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard -marm -mno-unaligned-access
 ```
 
+Edit 7 Oct 23: - the same ```-mno-unaligned-access``` must be added for all other boards, including the zero.
+
 ## Detail
 
 Specifically I was initially trying to build [Pi1541](https://github.com/pi1541/Pi1541), with the gcc-arm-none-eabi toolchain provided with Ubuntu 22.04, which is currently based on GCC version 10.3.  This produced a Pi1541 image that failed to boot on a Raspberry Pi 3B+ (showing only the GPU's coloured splashed screen).
