@@ -2,7 +2,7 @@
 layout: post
 title:  "Raspberry Pi 5 UART timings different from previous generations"
 date:   2023-11-18 7:01 +0000
-tags:   raspberry pi 5 uart rp1 rpi5 serial timing
+tags:   raspberry pi 5 uart rp1 rpi5 serial timing mbus master hat
 ---
 
 It looks like the UART timings, at least for low baud-rate applications, differ substantially on the Raspberry Pi 5 compared with previous generations.
