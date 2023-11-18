@@ -59,7 +59,7 @@ Save and rebuild libmbus.
 
 I have committed a fix to the [master repo](https://github.com/packom/pyMbusHat).
 
-## Running M-Bus Master Hat on the Pi 5
+## Using the M-Bus Master Hat with a Pi 5
 
 If you found this article trying to figure out how to get an M-Bus Master Hat working on the Raspberry Pi 5, as well as modifying the software as above, you will need to follow these instructions.
 
