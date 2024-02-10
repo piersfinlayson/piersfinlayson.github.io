@@ -7,6 +7,16 @@ tags:   raspberry pi horde
 
 I thought it would be interesting, for me if nobody else, to do an inventory of all of my Raspberry Pis (not including Picos) - both those that are deployed for various purposes, and those which are unused.  Turns out I have a total of 17 deployed Pis, 27 currently unused, for a total of 44 (and 2 more that I've killed over the years) - seems like a lot!
 
+<figure>
+  <img alt="Some Raspberry Pis" src="/static/img/unused_pis_feb_24.jpg" width="480" />
+  <figcaption>Unused Pis, clockwise from top left:</figcaption>
+  <figcaption>Zeros</figcaption>
+  <figcaption>Pi 4s</figcaption>
+  <figcaption>CM4s</figcaption>
+  <figcaption>Pi 5s</figcaption>
+  <figcaption>Pi 3s</figcaption>
+</figure>
+
 ## Deployed Pis
 
 The oldest deployed Pi is a Model B Rev 1, with 256MB RAM and the 26-pin GPIO header and which was released in 2012.  This has been deployed in a loft driving a USB webcam, as part of my home security system for more years than I can remember - probably closed to 10.  It's very slow and struggles with doing much of anything other than successfully running [motion](https://github.com/Motion-Project/motion), streaming the camera images to a remote browser.
