@@ -9,8 +9,7 @@ I thought it would be interesting, for me if nobody else, to do an inventory of 
 
 <figure>
   <img alt="Some Raspberry Pis" src="/static/img/unused_pis_feb_24.jpg" width="480" />
-  <figcaption>Unused Pis, clockwise from top left:</figcaption>
-  <figcaption>Zeros, Pi 4s, CM4s, Pi 5s, Pi 3s</figcaption>
+  <figcaption>Unused Pis, clockwise from top left: Zeros, Pi 4s, CM4s, Pi 5s, Pi 3s</figcaption>
 </figure>
 
 ## Deployed Pis
@@ -58,8 +57,7 @@ I make that 17 Pis that are actively being used, or at least powered on.
 
 <figure>
   <img alt="Some Raspberry Pis" src="/static/img/unused_pis_feb_24.jpg" width="480" />
-  <figcaption>Unused Pis, clockwise from top left:</figcaption>
-  <figcaption>Zeros, Pi 4s, CM4s, Pi 5s, Pi 3s</figcaption>
+  <figcaption>Unused Pis, clockwise from top left: Zeros, Pi 4s, CM4s, Pi 5s, Pi 3s</figcaption>
 </figure>
 
 I have a fine stash of unused Pi Zeros:
