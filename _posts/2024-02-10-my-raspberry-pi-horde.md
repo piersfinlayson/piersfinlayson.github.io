@@ -40,7 +40,7 @@ Moving on from the Zeros, I use a Raspberry Pi 3 A+ as a commissioning and test 
 
 <figure>
   <img alt="Some Raspberry Pis" src="/static/img/pi_servers_feb_24.jpg" width="480" />
-  <figcaption>Top Left: Spare equipment and instructions for when lighting (literally) strikes (again) and blows up the DSL modem</figcaption>
+  <figcaption>Top Left: Spare equipment and instructions for when lighting (literally) strikes (again) and blows up the DSL modem (again++)</figcaption>
   <figcaption>Top Right: Pi 3 B+ router/firewall and 2 Pi 4 servers (all behind noctua fan), plus DSL modem</figcaption>
   <figcaption>Bottom left: Pi Model B Rev 2 backup server</figcaption>
   <figcaption>Bottom right: Pi CM4 NAS</figcaption>
