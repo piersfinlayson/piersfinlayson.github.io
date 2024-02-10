@@ -5,7 +5,7 @@ date:   2024-02-10 7:01 +0000
 tags:   raspberry pi horde
 ---
 
-I thought it would be interesting, for me if nobody else, to do an inventory of all of my Raspberry Pis - both those that are deployed for various purposes, and those which are unused.  Turns out I have a total of 16 deployed Pis, 25 currently unused, for a total of 41 (and 2 more that I've killed over the years) - seems like a lot!
+I thought it would be interesting, for me if nobody else, to do an inventory of all of my Raspberry Pis (not including Picos) - both those that are deployed for various purposes, and those which are unused.  Turns out I have a total of 17 deployed Pis, 27 currently unused, for a total of 44 (and 2 more that I've killed over the years) - seems like a lot!
 
 ## Deployed Pis
 
@@ -15,7 +15,7 @@ The second oldest Pi is a Model B Rev 2, with 512MB RAM.  Again this has the 26-
 
 I have one original (non WiFi) Pi Zero deployed, a Rev 1.3.  As it's a Rev 1.3 it's probably not one I picked it up at WHSmiths at Birmingham International railway station with a copy of [MagPi](https://www.theguardian.com/technology/2015/nov/26/raspberry-pi-zero-computer-cheap-free-magazine-magpi) back in 2015.  (I remember going back later for another copy - despite it selling out all over the place, there didn't seem to be many SBC aficionados checking out Smiths at Birmingham International at the time).  This has a Ralink MT7601U WiFi USB dongle installed, and is part of my home monitoring setup, with 2 x DS18B20 one wire temperature sensors, one detecting the outside temperature (reporting -0.1C as I write this), and the other, the temperature in an outbuilding.  This has been deployed for about a year.  The bulk of my home automation and monitoring uses custom ESP8266-based hardware, which I [designed](https://github.com/piersfinlayson/otb-iot/blob/master/docs/source/espi.rst), built and developed the [software](https://github.com/piersfinlayson/otb-iot) for.  (One of the custom hardware variants being Pi Zero form factor and with an almost Pi compatible GPIO header, and which I thought I was very clever in naming the ESPi - pronounced "ee-es-pi".)  However, maintaining the hardware and software for the ESPi is a bit of a pain, so I'm moving over to Pi as devices are damaged, fail, or become unreliable.
 
-I have 5 other Pi Zeros deployed, all W Rev 1.1s:
+I have 6 other Pi Zeros deployed, all W Rev 1.1s:
 
 * Two of these control separate underfloor heating installations.  One of these is very basic, monitoring room temperatures via influxdb queries (my temperature sensors store temperatures to influxdb every minute either directly, or in some cases via an MQTT broker).  It then turns an UFH pump on and off via an off the shelf relay hat, using a python script.  (That room is currently 17.8C, with the floor at 25.8C and the UFH pump on).  This Pi replaced one of my own pieces of hardware (one of my very first ESP8266 designs) about a year ago, to make it more maintainable and reliable.  The second heating Pi is installed on a custom designed central heating PCB, with onboard relays and ports to terminate DS18B20 one wire temperature sensors directly.  This both senses temperatures associated with this UFH installation, storing the results influxdb, and also controls an UFH pump, and diverter valve, via separate relays.  This Pi has been in place since commissioning this UFH installation, around 2 years ago.
 
@@ -23,7 +23,10 @@ I have 5 other Pi Zeros deployed, all W Rev 1.1s:
 
 * Then I have 2 Prusa 3D printers, both controlled by Pi Zero Ws running Octoprint, one with a Pi camera attached.  Despite the dire warnings from Octoprint I've never hit a problem controlling these printers with Pi Zeros.  One of these Pis is connected via USB to the printer, the other soldered directly to the Prusa control board.
 
+* I also have a Pi Zero W (why I'm using the W for this I'm not sure!) emulating a Commodore 1541 disk drive, using a Pi1541 hat and the [Pi1541 software](https://github.com/pi1541/Pi1541).  I use this with my VIC-20s and C64s.
+
 Moving on from the Zeros, I use a Raspberry Pi 3 A+ as a commissioning and test device for the M-Bus Master Hats which I sell.  I have these Hats manufactured for me in China, but as the testing requires M-Bus meters I put them through their paces at home, and also program the EEPROM so the Hats can be detected automatically by the Pi.  I really like the smaller form-factor of the A+, but given sales of the cases I sell alongside the Hats, they do not seem to be very popular generally.
+
 
 <figure>
   <img alt="Some Raspberry Pis" src="/static/img/pi_servers_feb_24.jpg" width="480" />
@@ -43,14 +46,14 @@ I have another Raspberry Pi 4 Rev 1.5 4GB which acts as a build server, and runs
 
 Finally I recently set up a monero node to explore that crypto-currency, on a Raspberry Pi 5 Model B Rev 1.0, with 4GB RAM.  This has a 1TB USB SSD attached to store the Monero blockchain.
 
-I make that 16 Pis that are actively being used, or at least powered on.
+I make that 17 Pis that are actively being used, or at least powered on.
 
 ## Unused Pis
 
 I have a fine stash of unused Pi Zeros:
 * 3 x Pi Zeros (2 x v1.2s which were probably sourced on the front of MagPis in 2015, and 1 x v1.3)
 * 4 x Pi Zero Ws (one of which I [modded](https://hackaday.com/2017/03/07/adding-an-external-antenna-to-the-raspberry-pi-zero-w/) to support an external WiFi antenna)
-* 5 x Pi Zero W 2s
+* 6 x Pi Zero W 2s
 
 I have a number of unused Pi 3s:
 * 4 x 3 A+s
@@ -58,7 +61,7 @@ I have a number of unused Pi 3s:
 
 I have 3 Pi 4 Bs:
 * 1 x 4B 2GB
-* 1 x 4B 4GB
+* 2 x 4B 4GB
 * 1 x 4B 8GB
 
 Some spare Compute Module 4s:
@@ -69,6 +72,6 @@ Some spare Compute Module 4s:
 
 And ~~a partridge in a pear tree~~ 1 x 8GB Pi 5.
 
-That's 25 total.
+That's 27 total.
 
 I've killed a couple of Pis over the years, and discarded these.  One of the killed device was a Pi 3 A+ and the other I don't have records of.
