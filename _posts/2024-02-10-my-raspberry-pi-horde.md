@@ -60,6 +60,16 @@ I make that 17 Pis that are actively being used, or at least powered on.
 
 ## Unused Pis
 
+<figure>
+  <img alt="Some Raspberry Pis" src="/static/img/unused_pis_feb_24.jpg" width="480" />
+  <figcaption>Unused Pis, clockwise from top left:</figcaption>
+  <figcaption>Zeros</figcaption>
+  <figcaption>Pi 4s</figcaption>
+  <figcaption>CM4s</figcaption>
+  <figcaption>Pi 5s</figcaption>
+  <figcaption>Pi 3s</figcaption>
+</figure>
+
 I have a fine stash of unused Pi Zeros:
 * 3 x Pi Zeros (2 x v1.2s which were probably sourced on the front of MagPis in 2015, and 1 x v1.3)
 * 4 x Pi Zero Ws (one of which I [modded](https://hackaday.com/2017/03/07/adding-an-external-antenna-to-the-raspberry-pi-zero-w/) to support an external WiFi antenna)
