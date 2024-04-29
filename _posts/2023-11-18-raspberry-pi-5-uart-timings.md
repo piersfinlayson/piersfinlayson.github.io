@@ -5,6 +5,8 @@ date:   2023-11-18 7:01 +0000
 tags:   raspberry pi 5 uart rp1 rpi5 serial timing mbus master hat
 ---
 
+*Edit: 29th April 2024 - I no longer believe the Pi 5 UART timings are responsible for the problems I saw with the Pi 5 and serial, as I and others have seen similar problems with earlier versions of the Pi.  Specifically, I have fixed limbus [here](github.com/piersfinlayson/libmbus) by increasing the timeouts.  I suspect instead, changes to the linux kernel (probably in version 6 somewhere).*
+
 It looks like the UART timings, at least for low baud-rate applications, differ substantially on the Raspberry Pi 5 compared with previous generations.
 
 I guess this is down to the RP1 chip, where, on the Raspberry Pi 5, the UARTs (and other peripherals) are implementated on a separate IC to the CPU.  On previous generations, the UARTs are onboard the main processor.
