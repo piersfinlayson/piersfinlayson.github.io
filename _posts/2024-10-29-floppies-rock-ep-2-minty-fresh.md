@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Video: testing a Commodore 2031 disk drive without a PET (floppies rock ep 2)"
-date:   2024-10-29 15:45 +0100
+date:   2024-10-29 15:45 +0000
 tags:   commodore 64 c64 pet ieee 488 ieee-488 gpib hpib 1541 disk drive floppy 5.25
 ---
 
