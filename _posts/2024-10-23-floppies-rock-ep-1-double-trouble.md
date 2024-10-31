@@ -9,4 +9,4 @@ Today I've my published first [piers rocks](https://youtube.com/@piers_rocks) vi
 
 [![floppies rock ep 1](https://img.youtube.com/vi/2PtCqtm1c_k/0.jpg)](https://www.youtube.com/watch?v=2PtCqtm1c_k)
 
-(opens in a new video)
+(opens in a new window)

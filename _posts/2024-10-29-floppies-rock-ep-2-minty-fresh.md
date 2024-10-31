@@ -9,4 +9,4 @@ Today I've the next video in my [piers rocks](https://youtube.com/@piers_rocks) 
 
 [![floppies rock ep 2](https://img.youtube.com/vi/hpo6yUmcpv0/0.jpg)](https://www.youtube.com/watch?v=hpo6yUmcpv0)
 
-(opens in a new video)
+(opens in a new window)
