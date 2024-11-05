@@ -5,7 +5,7 @@ date:   2024-10-29 15:45 +0000
 tags:   commodore 64 c64 pet ieee 488 ieee-488 gpib hpib 1541 disk drive floppy 5.25
 ---
 
-Today I've the next video in my [piers rocks](https://youtube.com/@piers_rocks) floppies rock series:
+Today I've uploaded the next video in my [piers rocks](https://youtube.com/@piers_rocks) floppies rock series:
 
 [![floppies rock ep 2](https://img.youtube.com/vi/hpo6yUmcpv0/0.jpg)](https://www.youtube.com/watch?v=hpo6yUmcpv0)
 
