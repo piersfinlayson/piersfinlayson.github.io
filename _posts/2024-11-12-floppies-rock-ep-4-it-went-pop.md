@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Video: It Went Pop! (floppies rock ep 4) "
+title:  "Video: It Went Pop! (floppies rock ep 4)"
 date:   2024-11-12 15:45 +0000
 tags:   commodore 64 c64 1541 disk drive floppy 5.25 1571
 ---
 
 Episode 4 in my [piers rocks](https://youtube.com/@piers_rocks) floppies rock series:
 
-[![floppies rock ep 2](https://img.youtube.com/vi/wuxZIVp5mZE/0.jpg)](https://www.youtube.com/watch?v=wuxZIVp5mZE)
+[![floppies rock ep 4](https://img.youtube.com/vi/wuxZIVp5mZE/0.jpg)](https://www.youtube.com/watch?v=wuxZIVp5mZE)
 
 (opens in a new window)
 

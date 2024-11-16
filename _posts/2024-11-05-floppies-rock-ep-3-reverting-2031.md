@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Video: Reverting a Commodore 2031 back from a 1541 (floppies rock ep 3) "
+title:  "Video: Reverting a Commodore 2031 back from a 1541 (floppies rock ep 3)"
 date:   2024-11-05 15:45 +0000
 tags:   commodore 64 c64 pet ieee 488 ieee-488 gpib hpib 1541 disk drive floppy 5.25 2031 2031lp
 ---
 
 Episode 3 in my [piers rocks](https://youtube.com/@piers_rocks) floppies rock series:
 
-[![floppies rock ep 2](https://img.youtube.com/vi/hD0U8kDFsvc/0.jpg)](https://www.youtube.com/watch?v=hD0U8kDFsvc)
+[![floppies rock ep 3](https://img.youtube.com/vi/hD0U8kDFsvc/0.jpg)](https://www.youtube.com/watch?v=hD0U8kDFsvc)
 
 (opens in a new window)
 
