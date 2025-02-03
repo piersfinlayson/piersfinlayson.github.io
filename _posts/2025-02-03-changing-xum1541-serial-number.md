@@ -80,8 +80,8 @@ With a possible 256 serial numbers and a max of 4-5 drives per device ... well t
 
 After much experimentation I don't think the eeprom on these ATMEGA chips can be written, at least via USB, after the device has been flashed.  Hence you need to go through the process above - erase the entire device, program the flash, then program the firmware (which then locks the eeprom for writing). 
 
-Therefore I don't think this `xum1541cfg` command line option can really work (unless it read in the firmware, stored it, erased the device, flashed the eeprom, then reflashed the firmware - which is then obviously prone to hitting an error at any stage).
-
 It may be that with an ATMEGA programming device and `avrdude` this is possible, but I don't have such a device to check.
+
+Therefore I don't think this `xum1541cfg` command line option can really work, unless it read in the firmware, stored it, erased the device, flashed the eeprom, then reflashed the firmware - which is then obviously prone to hitting an error at any stage.  Doable, but a bit dangerous to automate, as you then rely on the user picking up the pieces.  With the approach above, at least you know what you have to do up-front! 
 
 It would be possible to enhance the main firmware update mechanism, `xum1541cfg update`, which flashes the firmware (and uses a version of the dfu-programmer code under the covers) to take an optional serial number, and flash the eeprom with it, before flashing the firmware, as it has to erase the device before flashing the firmware anyway.
