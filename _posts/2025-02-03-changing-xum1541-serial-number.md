@@ -76,7 +76,7 @@ With a possible 256 serial numbers and a max of 4-5 drives per device ... well t
 
 ## Other musings
 
-`xum1541cfg` which ships with [OpenCbm](https://github.com/OpenCBM/OpenCBM) purports to support setting a serial number, but indicates this is "currently unsupported".
+`xum1541cfg` which ships with [OpenCBM](https://github.com/OpenCBM/OpenCBM) purports to support setting a serial number, but indicates this is "currently unsupported".
 
 After much experimentation I don't think the eeprom on these ATMEGA chips can be written, at least via USB, after the device has been flashed.  Hence you need to go through the process above - erase the entire device, program the flash, then program the firmware (which then locks the eeprom for writing). 
 
