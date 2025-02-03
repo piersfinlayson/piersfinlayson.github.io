@@ -14,7 +14,7 @@ Why would you want multiple?
 * to connect more devices than one bus can support
 * to connect multiple devices with the same numbers simultaneously.
 
-The only way I'd seen to do previously this was to change the firmware flashed to the device.  I've now found an easier way which does not require modifying the main firmware.
+The only way I'd seen to do previously this was to change the firmware flashed to the device.  I've now found an easier way (on linux) which does not require modifying the main firmware.
 
 The mechanism involves writing a single byte to the eeprom area of the ATMEGA processor.  However it does also require erasing the device and reinstalling (or upgrading) the stock xum1541 firmware.
 
