@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Setting an xum1541 serial number"
+title: "Setting an xum1541/ZoomFloppy serial number"
 date: 2025-02-03 12:00 +0000
-tags: 1541 commodore xum1541 serial floppy disk atmel atmega opencbm
+tags: 1541 commodore xum1541 serial floppy disk atmel atmega opencbm zoomfloppy
 ---
 
-The xum1541 is a nifty device which allows you to connect your Commodore disk drives to your PC (Windows, Linux, MacOS).  It connects to your PC via USB and exposes a serial (IEC), parallel or IEEE-488 bus for you to connect your disk drives.
+The xum1541 (aka ZoomFloppy) is a nifty device which allows you to connect your Commodore disk drives to your PC (Windows, Linux, MacOS).  It connects to your PC via USB and exposes a serial (IEC), parallel or IEEE-488 bus for you to connect your disk drives.
 
 If you want to connect multiple xum1541s to your PC, in order to have multiple buses you can - you just need xum1541s with different serial numbers.  However, there's a problem with this - there's no obvious, supported or easy mechanism to create an xum1541 with a serial number other than 0.
 
