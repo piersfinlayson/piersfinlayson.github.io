@@ -7,10 +7,10 @@
 
 // Our variables
 $base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$base-font-size:   16px;
+$base-font-size:   20px;
 $base-font-weight: 400;
 $small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
+$base-line-height: 1.75;
 
 $spacing-unit:     30px;
 
@@ -51,3 +51,163 @@ $on-laptop:        800px;
         "layout",
         "syntax-highlighting"
 ;
+
+body {
+  background-color: #1a1a1a !important;
+  color: #e0e0e0 !important;
+}
+
+.site-header {
+  background-color: #1a1a1a !important;
+  border-bottom: 1px solid #333 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 15px 0 !important;
+  max-width: none !important;
+}
+
+.site-title,
+.site-title:visited {
+  color: #e0e0e0 !important;
+}
+
+.page-link {
+  color: #e0e0e0 !important;
+}
+
+.page-link:hover {
+  color: #1B86B0 !important;
+}
+
+.page-content {
+  background-color: #1a1a1a !important;
+}
+
+// Card for article content ONLY
+.page-content .wrapper {
+  background: #2a2a2a !important;
+  border: 1px solid #333 !important;
+  border-radius: 6px !important;
+  padding: 2rem !important;
+  margin: 2rem auto !important;
+  max-width: 800px !important;
+}
+
+.post-title,
+.post-title a,
+.post-title a:visited {
+  color: #1B86B0 !important;
+}
+
+.post-meta {
+  color: #8b949e !important;
+}
+
+a {
+  color: #94a3b8 !important;
+}
+
+a:visited {
+  color: #94a3b8 !important;
+}
+
+a:hover {
+  color: #cbd5e1 !important;
+}
+
+blockquote {
+  color: #8b949e !important;
+  border-left: 4px solid #333 !important;
+}
+
+code {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+}
+
+pre {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+}
+
+.site-footer {
+  background-color: #1a1a1a !important;
+  border-top: 1px solid #333 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 15px 0 !important;
+  max-width: none !important;
+  color: #e0e0e0 !important;
+}
+
+.footer-heading,
+.contact-list,
+.social-media-list {
+  color: #e0e0e0 !important;
+}
+
+.profile-photo {
+  float: right;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 0 20px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+@media (max-width: 600px) {
+  .profile-photo {
+    float: none;
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 150px;
+    height: 150px;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 16px 0;
+  background: transparent;
+}
+
+th, td {
+  padding: 8px 16px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+th {
+  background: transparent;
+  color: #e0e0e0;
+  font-weight: 600;
+  border-bottom: 2px solid #333;
+}
+
+td {
+  color: #e0e0e0;
+  background: transparent;
+}
+
+td:first-child {
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+h1, h2 {
+  border-bottom: 1px solid #333;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  color: #1B86B0 !important;
+}
+
+h1 {
+  border-bottom: 2px solid #333;
+}
+
+h3, h4, h5, h6 {
+  margin-bottom: 12px;
+  color: #1B86B0 !important;
+}
