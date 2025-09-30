@@ -12,7 +12,7 @@ Here are some notes on the One ROMs I gave you at VCF Midwest, to help get you s
 
 ## TL;DR
 
-Plug in the USB version to your PC and open https://onerom.piers.rocks/ to program one of the pre-built images to One ROM.  Should work on Windows, Mac and Linux.  Follow the first time setup instructions on the page.
+Plug in the USB version to your PC and open [https://onerom.piers.rocks/](https://onerom.piers.rocks/) to program one of the pre-built images to One ROM.  Should work on Windows, Mac and Linux.  Follow the first time setup instructions on the page.
 
 ## Background
 
@@ -36,7 +36,7 @@ I gave you 5 ROMs, each with a different pre-installed ROM collection:
 
 - **R** - A (very new) Raspberry Pi RP2350 based One ROM, with a multi-ROM set for the C64 including KERNAL/BASIC/Character ROM.  This single One ROM replaces all three ROMs simultaneously.  See [the config](https://github.com/piersfinlayson/one-rom/tree/main/config/set-c64.mk) and [Multi-ROM Sets](https://github.com/piersfinlayson/one-rom/tree/main/docs/GETTING-STARTED.md#multi-rom-sets) for details.
 
-- **USB** - This the most bleeding edge version of One ROM (H446).  You can program this one super easily with pre-built One ROM images at https://onerom.piers.rocks/.  Follow the first time setup instructions for Windows/Linux - it should "just work" on Mac.
+- **USB** - This the most bleeding edge version of One ROM (H446).  You can program this one super easily with pre-built One ROM images at [https://onerom.piers.rocks/](https://onerom.piers.rocks/).  Follow the first time setup instructions for Windows/Linux - it should "just work" on Mac.
 
 ## Technical Details
 
