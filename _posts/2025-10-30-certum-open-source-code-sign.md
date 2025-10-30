@@ -2,7 +2,7 @@
 layout: post
 title: "Certum Open Source Developer Code Signing Certificate"
 date: 2025-10-30 07:00 +0000
-tags: certum code signing open source
+tags: certum code signing open source signtool
 ---
 
 In order to sign [One ROM Studio](https://onerom.org/studio/) Windows releases, to encourage Windows' Smart Screen to let users run my application, I bought a [Certum Open Source Developer Code Signing Certificate](https://certum.pl/).
