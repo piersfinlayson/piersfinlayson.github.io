@@ -71,7 +71,9 @@ def format_description(description):
                 formatted_words = []
                 for word in words:
                     if word.startswith('http'):
-                        formatted_words.append(f'<{word}>')
+                        # Keep trailing punctuation out of the link
+                        url = word.rstrip('.,;:!?')
+                        formatted_words.append(f'<{url}>{word[len(url):]}')
                     else:
                         formatted_words.append(word)
                 formatted_lines.append(' '.join(formatted_words) + '  ')
@@ -129,7 +131,7 @@ def create_blog_post(video_url):
         
         # Create post content
         content = YOUTUBE_TEMPLATE.format(
-            title=video_info['title'],
+            title=video_info['title'].replace('\\', '\\\\').replace('"', '\\"'),
             date=video_info['date'],
             description=video_info['description'],
             video_id=video_id
